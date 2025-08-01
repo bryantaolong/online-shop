@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bryan.system.common.exception.BusinessException;
 import com.bryan.system.mapper.UserMapper;
-import com.bryan.system.model.entity.User;
+import com.bryan.system.model.entity.user.User;
 import com.bryan.system.model.request.UserExportRequest;
 import com.bryan.system.model.vo.UserExportVO;
 import com.bryan.system.model.converter.UserConverter;

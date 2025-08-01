@@ -1,4 +1,4 @@
-package com.bryan.system.model.entity;
+package com.bryan.system.model.entity.user;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
@@ -40,8 +40,6 @@ public class User implements Serializable, UserDetails {
     private String phoneNumber;
 
     private String email;
-
-    private Integer gender;
 
     private String avatar;
 

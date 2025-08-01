@@ -7,7 +7,7 @@ import com.bryan.system.common.exception.ResourceNotFoundException;
 import com.bryan.system.model.request.PageRequest;
 import com.bryan.system.model.request.UserSearchRequest;
 import com.bryan.system.model.request.UserUpdateRequest;
-import com.bryan.system.model.entity.User;
+import com.bryan.system.model.entity.user.User;
 import com.bryan.system.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -105,62 +105,57 @@ public class UserService {
             queryWrapper.like("email", searchRequest.getEmail().trim());
         }
 
-        // 5. 添加性别精确查询
-        if (searchRequest.getGender() != null) {
-            queryWrapper.eq("gender", searchRequest.getGender());
-        }
-
-        // 6. 添加状态精确查询
+        // 5. 添加状态精确查询
         if (searchRequest.getStatus() != null) {
             queryWrapper.eq("status", searchRequest.getStatus());
         }
 
-        // 7. 添加角色模糊查询（新增）
+        // 6. 添加角色模糊查询（新增）
         if (StringUtils.hasText(searchRequest.getRoles())) {
             queryWrapper.like("roles", searchRequest.getRoles().trim());
         }
 
-        // 8. 添加登录时间精确查询（新增）
+        // 7. 添加登录时间精确查询（新增）
         if (searchRequest.getLoginTime() != null) {
             queryWrapper.eq("login_time", searchRequest.getLoginTime());
         }
 
-        // 9. 添加登录IP模糊查询（新增）
+        // 8. 添加登录IP模糊查询（新增）
         if (StringUtils.hasText(searchRequest.getLoginIp())) {
             queryWrapper.like("login_ip", searchRequest.getLoginIp().trim());
         }
 
-        // 10. 添加密码重置时间精确查询（新增）
+        // 9. 添加密码重置时间精确查询（新增）
         if (searchRequest.getPasswordResetTime() != null) {
             queryWrapper.eq("password_reset_time", searchRequest.getPasswordResetTime());
         }
 
-        // 11. 处理创建时间查询
+        // 10. 处理创建时间查询
         handleTimeQuery(queryWrapper, "create_time",
                 searchRequest.getCreateTime(),
                 searchRequest.getCreateTimeStart(),
                 searchRequest.getCreateTimeEnd());
 
-        // 12. 处理更新时间查询
+        // 11. 处理更新时间查询
         handleTimeQuery(queryWrapper, "update_time",
                 searchRequest.getUpdateTime(),
                 searchRequest.getUpdateTimeStart(),
                 searchRequest.getUpdateTimeEnd());
 
-        // 13. 添加创建人模糊查询（新增）
+        // 12. 添加创建人模糊查询（新增）
         if (StringUtils.hasText(searchRequest.getCreateBy())) {
             queryWrapper.like("create_by", searchRequest.getCreateBy().trim());
         }
 
-        // 14. 添加更新人模糊查询（新增）
+        // 13. 添加更新人模糊查询（新增）
         if (StringUtils.hasText(searchRequest.getUpdateBy())) {
             queryWrapper.like("update_by", searchRequest.getUpdateBy().trim());
         }
 
-        // 15. 构造分页对象
+        // 14. 构造分页对象
         Page<User> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
 
-        // 16. 执行查询并返回结果
+        // 15. 执行查询并返回结果
         return userMapper.selectPage(page, queryWrapper);
     }
 
@@ -199,24 +194,19 @@ public class UserService {
                         existingUser.setEmail(userUpdateRequest.getEmail());
                     }
 
-                    // 4. 更新性别
-                    if (userUpdateRequest.getGender() != null) {
-                        existingUser.setGender(userUpdateRequest.getGender());
-                    }
-
-                    // 5. 更新头像
+                    // 4. 更新头像
                     if (userUpdateRequest.getAvatar() != null) {
                         existingUser.setAvatar(userUpdateRequest.getAvatar());
                     }
 
-                    // 6. 更新操作员信息
+                    // 5. 更新操作员信息
                     String operator = authService.getCurrentUsername();
                     existingUser.setUpdateBy(operator);
 
-                    // 7. 执行数据库更新
+                    // 6. 执行数据库更新
                     userMapper.updateById(existingUser);
 
-                    // 8. 记录日志并返回
+                    // 7. 记录日志并返回
                     log.info("用户ID: {} 的信息更新成功", userId);
                     return existingUser;
                 })

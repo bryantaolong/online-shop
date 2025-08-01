@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.bryan.system</groupId>
-    <artifactId>user-system</artifactId>
+    <artifactId>e-commerce</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>user-system</name>
-    <description>user-system</description>
+    <name>e-commerce</name>
+    <description>e-commerce</description>
     <url/>
     <licenses>
         <license/>

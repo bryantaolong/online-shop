@@ -64,7 +64,6 @@ public class UserExportController {
         fields.put("username", "用户名");
         fields.put("phoneNumber", "手机号");
         fields.put("email", "邮箱");
-        fields.put("gender", "性别");
         fields.put("status", "状态");
         fields.put("roles", "角色");
         fields.put("loginTime", "最后登陆时间");

@@ -2,7 +2,7 @@ package com.bryan.system.controller;
 
 import com.bryan.system.model.response.Result;
 import com.bryan.system.model.request.LoginRequest;
-import com.bryan.system.model.entity.User;
+import com.bryan.system.model.entity.user.User;
 import com.bryan.system.model.request.RegisterRequest;
 import com.bryan.system.service.AuthService;
 import jakarta.validation.Valid;

@@ -1,6 +1,6 @@
 package com.bryan.system.model.converter;
 
-import com.bryan.system.model.entity.User;
+import com.bryan.system.model.entity.user.User;
 import com.bryan.system.model.vo.UserExportVO;
 
 /**
@@ -22,7 +22,6 @@ public class UserConverter {
         vo.setUsername(user.getUsername());
         vo.setPhoneNumber(user.getPhoneNumber());
         vo.setEmail(user.getEmail());
-        vo.setGender(convertGender(user.getGender()));
         vo.setStatus(convertStatus(user.getStatus()));
         vo.setRoles(user.getRoles());
         vo.setLoginTime(user.getLoginTime());
@@ -34,11 +33,6 @@ public class UserConverter {
         vo.setUpdateBy(user.getUpdateBy());
 
         return vo;
-    }
-
-    private static String convertGender(Integer gender) {
-        if (gender == null) return "";
-        return gender == 1 ? "男" : "女";
     }
 
     private static String convertStatus(Integer status) {

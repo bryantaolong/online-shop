@@ -5,7 +5,7 @@ import com.bryan.system.common.enums.HttpStatus;
 import com.bryan.system.service.AuthService;
 import com.bryan.system.service.redis.RedisStringService;
 import com.bryan.system.util.jwt.JwtUtils;
-import com.bryan.system.model.entity.User;
+import com.bryan.system.model.entity.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

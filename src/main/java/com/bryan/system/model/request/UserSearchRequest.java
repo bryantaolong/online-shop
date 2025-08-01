@@ -28,11 +28,6 @@ public class UserSearchRequest {
     @Size(max = 100, message = "邮箱长度不能超过100个字符")
     private String email;
 
-    // 性别校验（0未知 1男 2女）
-    @Min(value = 0, message = "性别不合法")
-    @Max(value = 2, message = "性别不合法")
-    private Integer gender;
-
     // 状态校验（0禁用 1启用）
     @Min(value = 0, message = "状态不合法")
     @Max(value = 1, message = "状态不合法")

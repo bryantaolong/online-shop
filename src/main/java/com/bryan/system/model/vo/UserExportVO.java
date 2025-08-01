@@ -37,10 +37,6 @@ public class UserExportVO {
     @ColumnWidth(25)
     private String email;
 
-    @ExcelProperty("性别")
-    @ColumnWidth(10)
-    private String gender;
-
     @ExcelProperty("状态")
     @ColumnWidth(10)
     private String status;

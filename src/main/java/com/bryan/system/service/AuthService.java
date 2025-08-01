@@ -6,7 +6,7 @@ import com.bryan.system.service.redis.RedisStringService;
 import com.bryan.system.util.http.HttpUtils;
 import com.bryan.system.util.jwt.JwtUtils;
 import com.bryan.system.mapper.UserMapper;
-import com.bryan.system.model.entity.User;
+import com.bryan.system.model.entity.user.User;
 import com.bryan.system.model.request.LoginRequest;
 import com.bryan.system.model.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;

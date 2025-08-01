@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user-system
+    name: e-commerce
   profiles:
     active: dev
   jackson:
@@ -13,7 +13,7 @@ logging:
   level:
     root: INFO
   file:
-    name: logs/user-system.log
+    name: logs/e-commerce.log
   logback:
     rolling-policy:
       max-file-size: 10MB

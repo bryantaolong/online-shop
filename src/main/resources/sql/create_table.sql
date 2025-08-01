@@ -40,7 +40,7 @@ comment on column "user".update_time is '记录更新时间';
 comment on column "user".update_by is '记录更新人';
 
 alter table "user"
-    owner to postgres;
+    owner to e_commerce_user;
 
 create index idx_user_username
     on "user" (username);
