@@ -48,6 +48,24 @@ public class UserSearchRequest {
     @PastOrPresent(message = "密码重置时间不能是未来时间")
     private LocalDateTime passwordResetTime;
 
+    // 登录失败次数校验
+    @Min(value = 0, message = "登录失败次数不能为负数")
+    @Max(value = 10, message = "登录失败次数超过最大值")
+    private Integer loginFailCount;
+
+    // 账户锁定时间校验
+    @PastOrPresent(message = "账户锁定时间不能是未来时间")
+    private LocalDateTime accountLockTime;
+
+    // 删除标记校验
+    @Min(value = 0, message = "删除标记不合法")
+    @Max(value = 1, message = "删除标记不合法")
+    private Integer deleted;
+
+    // 乐观锁版本号校验
+    @Min(value = 0, message = "版本号不能为负数")
+    private Integer version;
+
     @PastOrPresent(message = "创建时间不能是未来时间")
     private LocalDateTime createTime;
 

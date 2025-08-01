@@ -27,12 +27,12 @@ import java.util.stream.Collectors;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("\"user\"")
-@KeySequence(value = "user_id_seq") // 指定序列名称
+@TableName("sys_user")
 public class User implements Serializable, UserDetails {
     @TableId(type = IdType.AUTO)
     private Long id;
 
+    @TableField(condition = SqlCondition.LIKE)
     private String username;
 
     private String password;
@@ -41,11 +41,9 @@ public class User implements Serializable, UserDetails {
 
     private String email;
 
-    private String avatar;
+    private Integer status; // 状态（0-正常，1-封禁，2-锁定）
 
-    private Integer status;   // 状态（0-正常，1-封禁）
-
-    private String roles;
+    private String roles; // 角色标识，多个用英文逗号分隔
 
     private LocalDateTime loginTime;
 
@@ -53,8 +51,15 @@ public class User implements Serializable, UserDetails {
 
     private LocalDateTime passwordResetTime;
 
+    private Integer loginFailCount; // 登录失败次数
+
+    private LocalDateTime accountLockTime; // 账户锁定时间
+
     @TableLogic
     private Integer deleted;
+
+    @Version
+    private Integer version; // 乐观锁版本号
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
@@ -66,31 +71,14 @@ public class User implements Serializable, UserDetails {
 
     private String updateBy;
 
-    /**
-     * 获取用户权限（Spring Security要求）。
-     * 根据 roles 字段解析权限。
-     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.roles == null || this.roles.isEmpty()) {
-            // 如果没有设置角色，可以返回一个默认角色，或者空列表
             return Collections.emptyList();
         }
-        // 将逗号分隔的角色字符串转换为 SimpleGrantedAuthority 列表
         return Arrays.stream(this.roles.split(","))
-                .map(SimpleGrantedAuthority::new)
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.trim()))
                 .collect(Collectors.toList());
-    }
-
-    // 以下是 UserDetails 的其他必要方法
-    @Override
-    public String getUsername() {
-        return this.username;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
     }
 
     @Override
@@ -100,7 +88,12 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.status == null || this.status == 0; // 检查status是否为0（正常），或为null（默认正常）
+        // status为0且未达到锁定时间或锁定时间已过
+        if (this.status == 0) return true;
+        if (this.status == 2 && this.accountLockTime != null) {
+            return LocalDateTime.now().isAfter(this.accountLockTime.plusHours(1));
+        }
+        return false;
     }
 
     @Override
@@ -110,7 +103,6 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.status != 1 && this.deleted == 0;
     }
-
 }
