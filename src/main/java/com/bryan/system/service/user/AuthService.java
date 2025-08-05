@@ -1,14 +1,15 @@
-package com.bryan.system.service;
+package com.bryan.system.service.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.bryan.system.common.enums.UserStatusEnum;
 import com.bryan.system.common.exception.BusinessException;
 import com.bryan.system.service.redis.RedisStringService;
 import com.bryan.system.util.http.HttpUtils;
 import com.bryan.system.util.jwt.JwtUtils;
 import com.bryan.system.mapper.UserMapper;
 import com.bryan.system.model.entity.user.User;
-import com.bryan.system.model.request.LoginRequest;
-import com.bryan.system.model.request.RegisterRequest;
+import com.bryan.system.model.request.auth.LoginRequest;
+import com.bryan.system.model.request.auth.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -101,7 +102,7 @@ public class AuthService implements UserDetailsService {
 
             // 如果输入密码错误次数达到限额-硬编码为 5，则锁定账号
             if(user.getLoginFailCount() >= 5) {
-                user.setStatus(2);
+                user.setStatus(UserStatusEnum.LOCKED);
                 user.setAccountLockTime(LocalDateTime.now());
                 throw new BusinessException("输入密码错误次数过多，账号锁定");
             }

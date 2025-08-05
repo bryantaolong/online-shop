@@ -1,12 +1,13 @@
-package com.bryan.system.service;
+package com.bryan.system.service.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.bryan.system.common.enums.UserStatusEnum;
 import com.bryan.system.common.exception.BusinessException;
 import com.bryan.system.common.exception.ResourceNotFoundException;
 import com.bryan.system.model.request.PageRequest;
-import com.bryan.system.model.request.UserSearchRequest;
-import com.bryan.system.model.request.UserUpdateRequest;
+import com.bryan.system.model.request.user.UserSearchRequest;
+import com.bryan.system.model.request.user.UserUpdateRequest;
 import com.bryan.system.model.entity.user.User;
 import com.bryan.system.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -279,7 +280,7 @@ public class UserService {
         return Optional.ofNullable(userMapper.selectById(userId))
                 .map(existingUser -> {
                     // 1. 设置状态为封禁
-                    existingUser.setStatus(1);
+                    existingUser.setStatus(UserStatusEnum.BANNED);
 
                     // 2. 更新操作员信息
                     String operator = authService.getCurrentUsername();
@@ -306,7 +307,7 @@ public class UserService {
         return Optional.ofNullable(userMapper.selectById(userId))
                 .map(existingUser -> {
                     // 1. 设置状态为正常
-                    existingUser.setStatus(0);
+                    existingUser.setStatus(UserStatusEnum.NORMAL);
 
                     // 2. 更新操作员信息
                     String operator = authService.getCurrentUsername();

@@ -1,0 +1,38 @@
+package com.bryan.system.common.enums;
+
+import com.baomidou.mybatisplus.annotation.IEnum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+/**
+ * AddressTagEnum 收货地址标签枚举
+ *
+ * @author Bryan Long
+ * @version 1.0
+ * @since 2025/8/5
+ */
+@Getter
+@AllArgsConstructor
+public enum AddressTagEnum implements IEnum<Integer> {
+    HOME(1, "家"),
+    COMPANY(2, "公司"),
+    SCHOOL(3, "学校"),
+    OTHER(4, "其他");
+
+    private final Integer code;
+    private final String desc;
+
+    public static AddressTagEnum of(Integer code) {
+        for (AddressTagEnum e : values()) {
+            if (e.getCode().equals(code)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Integer getValue() {
+        return code;
+    }
+}

@@ -1,10 +1,9 @@
--- user
+-- 用户主表
 create sequence "user_id_seq";
 
-create table "user"
+create table "sys_user"
 (
-    id                  bigint  default nextval('user_id_seq'::regclass) not null
-        primary key,
+    id                  bigint  default nextval('user_id_seq'::regclass) not null primary key,
     username            varchar(255)                                     not null,
     password            varchar(255)                                     not null,
     phone_number        varchar(50),
@@ -24,52 +23,178 @@ create table "user"
     account_lock_time   timestamp
 );
 
-comment on table "user" is '用户表，存储系统用户的基本信息、认证信息和状态';
-comment on column "user".id is '用户ID，主键，自增长';
-comment on column "user".username is '用户名，用于登录的唯一标识';
-comment on column "user".password is '加密后的用户密码';
-comment on column "user".phone_number is '用户手机号码';
-comment on column "user".email is '用户电子邮箱';
-comment on column "user".status is '用户状态(0-正常 1-禁用 2-锁定)';
-comment on column "user".roles is '用户角色，多个角色用逗号分隔';
-comment on column "user".login_time is '最后一次登录时间';
-comment on column "user".login_ip is '最后一次登录IP地址';
-comment on column "user".password_reset_time is '密码重置时间';
-comment on column "user".login_fail_count is '登录失败次数';
-comment on column "user".account_lock_time is '账户锁定时间';
-comment on column "user".deleted is '软删除标记(0-未删除 1-已删除)';
-comment on column "user".version is '乐观锁版本号';
-comment on column "user".create_time is '记录创建时间';
-comment on column "user".create_by is '记录创建人';
-comment on column "user".update_time is '记录更新时间';
-comment on column "user".update_by is '记录更新人';
+CREATE INDEX idx_user_username ON sys_user (username);
 
-alter table "user"
-    owner to e_commerce_user;
-
-create index idx_user_username
-    on "user" (username);
-
-comment on index idx_user_username is '用户名索引，用于加速用户名查询';
-
--- user_profile
-CREATE TABLE "user_profile" (
-                                user_id      BIGINT PRIMARY KEY,
-                                real_name    VARCHAR(255),
-                                gender       INTEGER,
-                                birthday     TIMESTAMP,
-                                avatar       VARCHAR(255),
-                                update_time  TIMESTAMP NOT NULL,
-                                update_by    VARCHAR(255)
+-- 用户详情
+CREATE TABLE sys_user_profile (
+                                  user_id      BIGINT PRIMARY KEY REFERENCES sys_user(id),
+                                  real_name    VARCHAR(50),
+                                  gender       SMALLINT CHECK (gender BETWEEN 0 AND 1),
+                                  birthday     DATE,
+                                  avatar       VARCHAR(255),
+                                  id_card      VARCHAR(18),
+                                  id_card_front VARCHAR(255),
+                                  id_card_back  VARCHAR(255),
+                                  personal_sign VARCHAR(255),
+                                  update_time  TIMESTAMP DEFAULT NOW(),
+                                  update_by    VARCHAR(50)
 );
 
-COMMENT ON TABLE "user_profile" IS '用户资料表，存储用户的详细信息';
-COMMENT ON COLUMN "user_profile".user_id IS '用户ID，关联user表的主键';
-COMMENT ON COLUMN "user_profile".real_name IS '用户真实姓名';
-COMMENT ON COLUMN "user_profile".gender IS '性别(0-未知 1-男 2-女)';
-COMMENT ON COLUMN "user_profile".birthday IS '用户生日';
-COMMENT ON COLUMN "user_profile".avatar IS '用户头像URL';
-COMMENT ON COLUMN "user_profile".update_time IS '记录更新时间';
-COMMENT ON COLUMN "user_profile".update_by IS '记录更新人';
+-- 用户收货地址
+CREATE TABLE ums_user_address (
+                                  id            BIGSERIAL PRIMARY KEY,
+                                  user_id       BIGINT NOT NULL REFERENCES sys_user(id),
+                                  receiver_name VARCHAR(50)  NOT NULL,
+                                  receiver_phone VARCHAR(20) NOT NULL,
+                                  province      VARCHAR(50),
+                                  city          VARCHAR(50),
+                                  district      VARCHAR(50),
+                                  detail_address VARCHAR(200),
+                                  postal_code   VARCHAR(10),
+                                  is_default    SMALLINT DEFAULT 0,
+                                  address_tag   SMALLINT,
+                                  tag_name      VARCHAR(20),
+                                  deleted       SMALLINT DEFAULT 0,
+                                  create_time   TIMESTAMP DEFAULT NOW(),
+                                  update_time   TIMESTAMP DEFAULT NOW()
+);
 
-ALTER TABLE "user_profile" OWNER TO e_commerce_user;
+-- 商品分类
+CREATE TABLE pms_category (
+                              id         BIGSERIAL PRIMARY KEY,
+                              name       VARCHAR(100) NOT NULL,
+                              parent_id  BIGINT REFERENCES pms_category(id),
+                              level      SMALLINT,
+                              sort_order INTEGER
+);
+
+-- 品牌
+CREATE TABLE pms_brand (
+                           id          BIGSERIAL PRIMARY KEY,
+                           name        VARCHAR(100) NOT NULL,
+                           logo        VARCHAR(255),
+                           description TEXT
+);
+
+-- 商品 SPU
+CREATE TABLE pms_product (
+                             id          BIGSERIAL PRIMARY KEY,
+                             name        VARCHAR(200) NOT NULL,
+                             category_id BIGINT REFERENCES pms_category(id),
+                             brand_id    BIGINT REFERENCES pms_brand(id),
+                             description TEXT,
+                             main_image  VARCHAR(255),
+                             status      SMALLINT DEFAULT 0,   -- 0-下架 1-上架
+                             create_time TIMESTAMP DEFAULT NOW(),
+                             update_time TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX idx_product_name ON pms_product (name);
+
+-- SKU
+CREATE TABLE pms_sku (
+                         id            BIGSERIAL PRIMARY KEY,
+                         product_id    BIGINT NOT NULL REFERENCES pms_product(id),
+                         sku_code      VARCHAR(50) UNIQUE,
+                         sku_name      VARCHAR(100),
+                         price         NUMERIC(10,2),
+                         original_price NUMERIC(10,2),
+                         stock         INTEGER,
+                         specifications JSONB,
+                         create_time   TIMESTAMP DEFAULT NOW(),
+                         update_time   TIMESTAMP DEFAULT NOW()
+);
+
+-- 商品图片
+CREATE TABLE pms_product_image (
+                                   id        BIGSERIAL PRIMARY KEY,
+                                   product_id BIGINT NOT NULL REFERENCES pms_product(id),
+                                   sku_id     BIGINT REFERENCES pms_sku(id),
+                                   image_url  VARCHAR(255),
+                                   sort_order INTEGER
+);
+
+CREATE TABLE ums_cart_item (
+                               id            BIGSERIAL PRIMARY KEY,
+                               user_id       BIGINT NOT NULL REFERENCES sys_user(id),
+                               product_id    BIGINT NOT NULL,
+                               sku_id        BIGINT NOT NULL,
+                               product_name  VARCHAR(200),
+                               sku_name      VARCHAR(200),
+                               product_image VARCHAR(255),
+                               price         NUMERIC(10,2),
+                               quantity      INTEGER,
+                               specifications JSONB,
+                               create_time   TIMESTAMP DEFAULT NOW(),
+                               update_time   TIMESTAMP DEFAULT NOW()
+);
+
+-- 订单主表
+CREATE TABLE oms_order (
+                           id            BIGSERIAL PRIMARY KEY,
+                           order_no      VARCHAR(50) UNIQUE NOT NULL,
+                           user_id       BIGINT NOT NULL REFERENCES sys_user(id),
+                           total_amount  NUMERIC(10,2),
+                           payment_amount NUMERIC(10,2),
+                           freight_amount NUMERIC(10,2),
+                           payment_type  SMALLINT, -- 枚举
+                           status        SMALLINT, -- 枚举
+                           shipping_name VARCHAR(100),
+                           shipping_code VARCHAR(50),
+                           receiver_name VARCHAR(50),
+                           receiver_phone VARCHAR(20),
+                           receiver_address VARCHAR(500),
+                           note          TEXT,
+                           payment_time  TIMESTAMP,
+                           delivery_time TIMESTAMP,
+                           receive_time  TIMESTAMP,
+                           create_time   TIMESTAMP DEFAULT NOW(),
+                           update_time   TIMESTAMP DEFAULT NOW(),
+                           deleted       SMALLINT DEFAULT 0,
+                           version       INTEGER DEFAULT 0
+);
+
+CREATE INDEX idx_order_user ON oms_order (user_id);
+CREATE INDEX idx_order_no ON oms_order (order_no);
+
+-- 订单明细
+CREATE TABLE oms_order_item (
+                                id            BIGSERIAL PRIMARY KEY,
+                                order_id      BIGINT NOT NULL REFERENCES oms_order(id),
+                                order_no      VARCHAR(50),
+                                product_id    BIGINT,
+                                sku_id        BIGINT,
+                                product_name  VARCHAR(200),
+                                sku_name      VARCHAR(200),
+                                product_image VARCHAR(255),
+                                product_price NUMERIC(10,2),
+                                quantity      INTEGER,
+                                total_price   NUMERIC(10,2),
+                                specifications JSONB
+);
+
+-- 订单历史（可选）
+CREATE TABLE oms_order_history (
+                                   id          BIGSERIAL PRIMARY KEY,
+                                   order_id    BIGINT REFERENCES oms_order(id),
+                                   order_status SMALLINT,
+                                   note        VARCHAR(255),
+                                   create_time TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE pay_payment (
+                             id               BIGSERIAL PRIMARY KEY,
+                             order_id         BIGINT NOT NULL REFERENCES oms_order(id),
+                             order_no         VARCHAR(50),
+                             payment_type     SMALLINT,
+                             transaction_id   VARCHAR(100),
+                             payment_amount   NUMERIC(10,2),
+                             payment_status   SMALLINT,
+                             payment_time     TIMESTAMP,
+                             callback_content TEXT,
+                             callback_time    TIMESTAMP,
+                             create_time      TIMESTAMP DEFAULT NOW(),
+                             update_time      TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX idx_payment_order ON pay_payment (order_no);

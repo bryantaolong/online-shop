@@ -2,12 +2,12 @@ package com.bryan.system.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bryan.system.model.request.PageRequest;
-import com.bryan.system.model.request.UserSearchRequest;
+import com.bryan.system.model.request.user.UserSearchRequest;
 import com.bryan.system.model.response.Result;
-import com.bryan.system.model.request.UserUpdateRequest;
+import com.bryan.system.model.request.user.UserUpdateRequest;
 import com.bryan.system.model.entity.user.User;
-import com.bryan.system.model.request.ChangePasswordRequest;
-import com.bryan.system.service.UserService;
+import com.bryan.system.model.request.user.ChangePasswordRequest;
+import com.bryan.system.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;

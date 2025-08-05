@@ -2,7 +2,7 @@ package com.bryan.system.filter;
 
 import com.bryan.system.model.response.Result;
 import com.bryan.system.common.enums.HttpStatus;
-import com.bryan.system.service.AuthService;
+import com.bryan.system.service.user.AuthService;
 import com.bryan.system.service.redis.RedisStringService;
 import com.bryan.system.util.jwt.JwtUtils;
 import com.bryan.system.model.entity.user.User;
