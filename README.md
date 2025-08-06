@@ -30,7 +30,7 @@ src/
       filter/         # JWT authentication filter
       handler/        # Global exception handler
       model/          # Entities, request/response objects, VO
-      repository/     # Spring Data JPA Repository interfaces (replaced MyBatis-Plus Mapper)
+      repository/     # Spring Data JPA Repository interfaces
       service/        # Service layer
       util/           # Utility classes (JWT, HTTP, etc.)
     resources/
