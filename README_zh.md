@@ -10,7 +10,7 @@
 
 - Java 17
 - Spring Boot 3.5.4
-- MyBatis-Plus
+- Spring Data JPA
 - PostgreSQL 17.x
 - Redis
 - Spring Security
@@ -25,18 +25,18 @@
 src/
   main/
     java/com/bryan/system/
-      config/         # 配置类（安全、Redis、MyBatis-Plus等）
-      controller/     # RESTful 控制器
-      filter/         # JWT 认证过滤器
-      handler/        # MyBatis 自动填充、全局异常处理
-      mapper/         # MyBatis-Plus Mapper接口
-      model/          # 实体、请求/响应对象、VO
-      service/        # 业务服务层
-      util/           # 工具类（JWT、HTTP等）
+      config/         # Configuration classes (security, Redis, JPA, etc.)
+      controller/     # RESTful controllers
+      filter/         # JWT authentication filter
+      handler/        # Global exception handler
+      model/          # Entities, request/response objects, VO
+      repository/     # Spring Data JPA Repository interfaces (replaced MyBatis-Plus Mapper)
+      service/        # Service layer
+      util/           # Utility classes (JWT, HTTP, etc.)
     resources/
       application.yaml
       application-dev.yaml
-      sql/            # 数据库建表脚本
+      sql/            # Database schema scripts
   test/
     java/com/bryan/system/
       UserSystemApplicationTests.java
