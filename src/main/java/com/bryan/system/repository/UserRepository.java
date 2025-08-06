@@ -35,9 +35,11 @@ public interface UserRepository extends JpaRepository<User, Long>,
 
     boolean existsByUsername(String username);
 
+    boolean existsByPhoneNumber(String phoneNumber);
+
     boolean existsByEmail(String email);
 
-    /* ---------- 100% 对齐 MyBatis-Plus 的 search ---------- */
+    /* ---------- search ---------- */
     default Page<User> searchUsers(UserSearchRequest req, Pageable pageable) {
         return findAll(new UserSpec(req), pageable);
     }
