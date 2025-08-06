@@ -1,7 +1,7 @@
 package com.bryan.system.model.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -13,7 +13,9 @@ import java.time.LocalDateTime;
  * @version 1.0
  * @since 2025/8/5
  */
-@Data
+@Getter
+@Setter
+@Builder
 public class BaseEntity implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
