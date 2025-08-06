@@ -65,10 +65,14 @@ public class User implements Serializable, UserDetails {
     private String roles;
 
     private LocalDateTime loginTime;
+
     private String loginIp;
+
     private LocalDateTime passwordResetTime;
 
+
     private Integer loginFailCount = 0;
+
     private LocalDateTime accountLockTime;
 
     /* ---------- 通用字段 ---------- */
@@ -79,10 +83,13 @@ public class User implements Serializable, UserDetails {
 
     @CreatedDate
     private LocalDateTime createTime;
+
     @LastModifiedDate
     private LocalDateTime updateTime;
+
     @CreatedBy
     private String createBy;
+
     @LastModifiedBy
     private String updateBy;
 

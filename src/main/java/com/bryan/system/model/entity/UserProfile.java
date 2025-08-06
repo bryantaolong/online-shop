@@ -1,6 +1,5 @@
 package com.bryan.system.model.entity;
 
-import com.baomidou.mybatisplus.annotation.Version;
 import com.bryan.system.common.enums.GenderEnum;
 import jakarta.persistence.*;
 import lombok.*;
