@@ -27,14 +27,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SQLRestriction("deleted = 0")
-@SQLDelete(sql = "UPDATE \"user\" SET deleted = 1, update_time = NOW() WHERE id = ? AND version = ?")
+//@SQLDelete(sql = "UPDATE table_name SET deleted = 1, update_time = NOW() WHERE id = ? AND version = ?")
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity implements Serializable {
 
     /* ---------- 主键 ---------- */
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_user_id_seq")
-    @SequenceGenerator(name = "user_user_id_seq", sequenceName = "user_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /* ---------- 通用字段 ---------- */
