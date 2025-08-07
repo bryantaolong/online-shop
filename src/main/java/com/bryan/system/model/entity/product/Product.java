@@ -1,57 +1,78 @@
 package com.bryan.system.model.entity.product;
 
-import com.baomidou.mybatisplus.annotation.*;
 import com.bryan.system.common.enums.ProductStatusEnum;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Product 商品SPU(标准产品单位)
+ * Product 商品 SPU（标准产品单位）
  *
  * @author Bryan Long
- * @version 1.0
  * @since 2025/8/1
  */
-@Data
+@Entity
+@Table(name = "pms_product")
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("pms_product")
+@SQLRestriction("deleted = 0")                       // 逻辑删除过滤
+@SQLDelete(sql = "UPDATE pms_product SET deleted = 1, update_time = NOW() WHERE id = ? AND version = ?")
+@EntityListeners(AuditingEntityListener.class)        // 自动填充审计字段
 public class Product implements Serializable {
-    @TableId(type = IdType.AUTO)
+
+    /* ---------- 主键 ---------- */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /* ---------- 业务字段 ---------- */
+    @Column(nullable = false, length = 128)
     private String name;
+
+    @Column(nullable = false)
     private Long categoryId;
+
+    @Column(nullable = false)
     private Long brandId;
+
+    @Column(length = 512)
     private String description;
+
+    @Column(length = 256)
     private String mainImage;
-    @EnumValue
-    private ProductStatusEnum status;
 
-    /** 逻辑删除 */
-    @TableLogic
-    private Integer deleted;
+    @Enumerated(EnumType.ORDINAL)   // 与数据库 integer 列对应
+    @Column(nullable = false)
+    private ProductStatusEnum status = ProductStatusEnum.OFF_SHELF;
 
-    /** 乐观锁 */
+    /* ---------- 通用字段 ---------- */
+    @Column(nullable = false)
+    private Integer deleted = 0;
+
     @Version
-    private Integer version;
+    private Integer version = 0;
 
-    /** 创建时间 */
-    @TableField(fill = FieldFill.INSERT)
+    @CreatedDate
     private LocalDateTime createTime;
 
-    /** 更新时间 */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @LastModifiedDate
     private LocalDateTime updateTime;
 
-    /** 创建人 */
-    @TableField(fill = FieldFill.INSERT)
+    @CreatedBy
     private String createBy;
 
-    /** 更新人 */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @LastModifiedBy
     private String updateBy;
 }

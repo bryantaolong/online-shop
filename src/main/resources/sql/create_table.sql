@@ -13,14 +13,14 @@ create table "sys_user"
     login_time          timestamp,
     login_ip            varchar(255),
     password_reset_time timestamp,
-    deleted             integer default 0,
-    create_time         timestamp                                        not null,
-    create_by           varchar(255),
-    update_time         timestamp,
-    update_by           varchar(255),
-    version             integer default 0,
     login_fail_count    integer default 0,
-    account_lock_time   timestamp
+    account_lock_time   timestamp,
+    deleted             integer default 0,
+    version             integer default 0,
+    create_time         timestamp                                        not null,
+    update_time         timestamp,
+    create_by           varchar(255),
+    update_by           varchar(255)
 );
 
 CREATE INDEX idx_user_username ON sys_user (username);
@@ -36,8 +36,12 @@ CREATE TABLE sys_user_profile (
                                   id_card_front VARCHAR(255),
                                   id_card_back  VARCHAR(255),
                                   personal_sign VARCHAR(255),
-                                  update_time  TIMESTAMP DEFAULT NOW(),
-                                  update_by    VARCHAR(50)
+                                  deleted             integer default 0,
+                                  version             integer default 0,
+                                  create_time         timestamp                                        not null,
+                                  update_time         timestamp,
+                                  create_by           varchar(255),
+                                  update_by           varchar(255)
 );
 
 -- 用户收货地址

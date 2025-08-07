@@ -1,6 +1,5 @@
 package com.bryan.system.common.enums;
 
-import com.baomidou.mybatisplus.annotation.IEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,7 +12,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum PayStatusEnum implements IEnum<Integer> {
+public enum PayStatusEnum {
     WAITING(0, "待支付"),
     SUCCESS(1, "支付成功"),
     FAIL(2, "支付失败"),
@@ -29,10 +28,5 @@ public enum PayStatusEnum implements IEnum<Integer> {
             }
         }
         return null;
-    }
-
-    @Override
-    public Integer getValue() {
-        return code;
     }
 }

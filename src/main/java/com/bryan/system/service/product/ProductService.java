@@ -1,10 +1,10 @@
 package com.bryan.system.service.product;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bryan.system.model.dto.ProductCreateDTO;
-import com.bryan.system.model.entity.product.Product;
-import com.bryan.system.model.request.product.ProductPageQuery;
+import com.bryan.system.model.request.product.ProductSearchRequest;
 import com.bryan.system.model.vo.ProductVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * ProductService
@@ -14,7 +14,7 @@ import com.bryan.system.model.vo.ProductVO;
  * @since 2025/8/5
  */
 public interface ProductService {
-    Page<ProductVO> pageProducts(ProductPageQuery query);
+    Page<ProductVO> searchProducts(ProductSearchRequest req, Pageable pageable);
 
     ProductVO getById(Long id);
 

@@ -1,7 +1,14 @@
 package com.bryan.system.model.entity.order;
 
-import com.baomidou.mybatisplus.annotation.*;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -11,61 +18,75 @@ import java.time.LocalDateTime;
  * OrderItem 订单项
  *
  * @author Bryan Long
- * @version 1.0
  * @since 2025/8/1
  */
-@Data
+@Entity
+@Table(name = "oms_order_item")
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("oms_order_item")
+@SQLRestriction("deleted = 0")                       // 逻辑删除过滤
+@SQLDelete(sql = "UPDATE oms_order_item SET deleted = 1, update_time = NOW() WHERE id = ? AND version = ?")
+@EntityListeners(AuditingEntityListener.class)        // 审计字段自动填充
 public class OrderItem implements Serializable {
-    @TableId(type = IdType.AUTO)
+
+    /* ---------- 主键 ---------- */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /* ---------- 业务字段 ---------- */
+    @Column(nullable = false)
     private Long orderId;
 
+    @Column(nullable = false, length = 32)
     private String orderNo;
 
+    @Column(nullable = false)
     private Long productId;
 
+    @Column(nullable = false)
     private Long skuId;
 
+    @Column(nullable = false, length = 128)
     private String productName;
 
+    @Column(length = 128)
     private String skuName;
 
+    @Column(length = 256)
     private String productImage;
 
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal productPrice;
 
+    @Column(nullable = false)
     private Integer quantity;
 
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal totalPrice;
 
+    @Column(columnDefinition = "json")
     private String specifications;
 
-    /** 逻辑删除 */
-    @TableLogic
-    private Integer deleted;
+    /* ---------- 通用字段 ---------- */
+    @Column(nullable = false)
+    private Integer deleted = 0;
 
-    /** 乐观锁 */
     @Version
-    private Integer version;
+    private Integer version = 0;
 
-    /** 创建时间 */
-    @TableField(fill = FieldFill.INSERT)
+    @CreatedDate
     private LocalDateTime createTime;
 
-    /** 更新时间 */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @LastModifiedDate
     private LocalDateTime updateTime;
 
-    /** 创建人 */
-    @TableField(fill = FieldFill.INSERT)
+    @CreatedBy
     private String createBy;
 
-    /** 更新人 */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @LastModifiedBy
     private String updateBy;
 }

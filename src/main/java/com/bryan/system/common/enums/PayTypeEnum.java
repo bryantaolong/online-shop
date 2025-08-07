@@ -1,6 +1,5 @@
 package com.bryan.system.common.enums;
 
-import com.baomidou.mybatisplus.annotation.IEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,7 +12,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum PayTypeEnum implements IEnum<Integer> {
+public enum PayTypeEnum {
     ALI_PAY(1, "支付宝"),
     WECHAT_PAY(2, "微信"),
     BALANCE(3, "余额");
@@ -28,10 +27,5 @@ public enum PayTypeEnum implements IEnum<Integer> {
             }
         }
         return null;
-    }
-
-    @Override
-    public Integer getValue() {
-        return code;
     }
 }

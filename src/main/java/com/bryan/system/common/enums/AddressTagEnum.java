@@ -1,6 +1,5 @@
 package com.bryan.system.common.enums;
 
-import com.baomidou.mybatisplus.annotation.IEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,7 +12,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum AddressTagEnum implements IEnum<Integer> {
+public enum AddressTagEnum {
     HOME(1, "家"),
     COMPANY(2, "公司"),
     SCHOOL(3, "学校"),
@@ -29,10 +28,5 @@ public enum AddressTagEnum implements IEnum<Integer> {
             }
         }
         return null;
-    }
-
-    @Override
-    public Integer getValue() {
-        return code;
     }
 }

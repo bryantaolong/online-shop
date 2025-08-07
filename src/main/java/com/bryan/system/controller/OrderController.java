@@ -1,24 +1,27 @@
 package com.bryan.system.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bryan.system.model.dto.CreateOrderDTO;
-import com.bryan.system.model.request.order.OrderPageQuery;
+import com.bryan.system.model.request.order.OrderSearchRequest;
 import com.bryan.system.model.vo.OrderVO;
 import com.bryan.system.service.order.OrderService;
 import com.bryan.system.model.response.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.data.domain.Sort.Direction.DESC;
+
 /**
  * OrderController
  *
  * @author Bryan Long
- * @version 1.0
  * @since 2025/8/5
  */
 @RestController
@@ -39,17 +42,19 @@ public class OrderController {
 
     /** 用户分页查看自己的订单 */
     @GetMapping("/my")
-    public Result<Page<OrderVO>> myOrders(@Valid OrderPageQuery query,
+    public Result<Page<OrderVO>> myOrders(@Valid OrderSearchRequest req,
+                                          @PageableDefault(sort = "createTime", direction = DESC) Pageable pageable,
                                           @AuthenticationPrincipal UserDetails user) {
-        query.setUserId(Long.valueOf(user.getUsername()));
-        return Result.success(orderService.pageOrders(query));
+        req.setUserId(Long.valueOf(user.getUsername()));
+        return Result.success(orderService.searchOrders(req, pageable));
     }
 
     /** 管理员分页查看全部订单 */
     @GetMapping("/page")
     @PreAuthorize("hasRole('ADMIN')")
-    public Result<Page<OrderVO>> pageOrders(@Valid OrderPageQuery query) {
-        return Result.success(orderService.pageOrders(query));
+    public Result<Page<OrderVO>> pageOrders(@Valid OrderSearchRequest req,
+                                            @PageableDefault(sort = "createTime", direction = DESC) Pageable pageable) {
+        return Result.success(orderService.searchOrders(req, pageable));
     }
 
     /** 用户/管理员查看订单详情 */

@@ -1,12 +1,8 @@
 package com.bryan.system.service.order;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bryan.system.common.enums.OrderStatusEnum;
 import com.bryan.system.common.exception.BusinessException;
 import com.bryan.system.common.exception.ResourceNotFoundException;
-import com.bryan.system.mapper.OrderItemMapper;
-import com.bryan.system.mapper.OrderMapper;
 import com.bryan.system.model.converter.CartItemConverter;
 import com.bryan.system.model.converter.OrderConverter;
 import com.bryan.system.model.converter.OrderItemConverter;
@@ -14,23 +10,25 @@ import com.bryan.system.model.dto.CreateOrderDTO;
 import com.bryan.system.model.entity.cart.CartItem;
 import com.bryan.system.model.entity.order.Order;
 import com.bryan.system.model.entity.order.OrderItem;
-import com.bryan.system.model.request.order.OrderPageQuery;
+import com.bryan.system.model.request.order.OrderSearchRequest;
 import com.bryan.system.model.vo.OrderItemVO;
 import com.bryan.system.model.vo.OrderVO;
+import com.bryan.system.repository.order.OrderItemRepository;
+import com.bryan.system.repository.order.OrderRepository;
 import com.bryan.system.service.cart.CartService;
 import com.bryan.system.service.product.SkuService;
 import com.bryan.system.util.id.IdUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -46,8 +44,8 @@ import java.util.stream.Collectors;
 @Transactional(rollbackFor = Exception.class)
 public class OrderServiceImpl implements OrderService {
 
-    private final OrderMapper orderMapper;
-    private final OrderItemMapper itemMapper;
+    private final OrderRepository orderRepository;
+    private final OrderItemRepository itemRepository;
     private final SkuService skuService;
     private final CartService cartService;
 
@@ -55,26 +53,30 @@ public class OrderServiceImpl implements OrderService {
     public String create(CreateOrderDTO dto) {
         List<CartItem> carts = CartItemConverter.toEntityList(
                 cartService.listByUser(dto.getUserId()));
-        if (carts.isEmpty()) throw new BusinessException("购物车为空");
+        if (carts.isEmpty()) {
+            throw new BusinessException("购物车为空");
+        }
 
         // 1. 扣库存
         carts.forEach(c -> skuService.deductStock(c.getSkuId(), c.getQuantity()));
 
-        // 2. 生成订单
+        // 2. 创建订单
         String orderNo = IdUtils.getSnowflakeNextIdStr();
         Order order = Order.builder()
                 .orderNo(orderNo)
                 .userId(dto.getUserId())
                 .totalAmount(calcTotal(carts))
+                .paymentAmount(calcTotal(carts)) // 示例：无运费
                 .status(OrderStatusEnum.PENDING_PAYMENT)
                 .build();
-        orderMapper.insert(order);
+        order = orderRepository.save(order);   // JPA 生成主键
 
         // 3. 保存明细
+        Order finalOrder = order;
         List<OrderItem> items = carts.stream()
-                .map(c -> OrderItemConverter.from(c, order.getId(), orderNo))
+                .map(c -> OrderItemConverter.from(c, finalOrder.getId(), orderNo))
                 .collect(Collectors.toList());
-        itemMapper.insertBatch(items);
+        itemRepository.saveAll(items);
 
         // 4. 清空购物车
         cartService.clear(dto.getUserId());
@@ -83,78 +85,75 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderVO getById(Long id) {
-        return Optional.ofNullable(orderMapper.selectById(id))
+        return orderRepository.findById(id)
                 .map(OrderConverter::toVO)
                 .orElseThrow(() -> new ResourceNotFoundException("订单不存在"));
     }
 
     @Override
     public OrderVO getByOrderNo(String orderNo) {
-        return Optional.ofNullable(
-                        orderMapper.selectOne(new QueryWrapper<Order>().eq("order_no", orderNo)))
+        return orderRepository.findByOrderNo(orderNo)
                 .map(OrderConverter::toVO)
                 .orElseThrow(() -> new ResourceNotFoundException("订单不存在"));
     }
 
     @Override
     public void update(Order order) {
-        orderMapper.updateById(order);
+        orderRepository.save(order);
     }
 
     @Override
-    public Page<OrderVO> pageOrders(OrderPageQuery q) {
-        QueryWrapper<Order> qw = new QueryWrapper<>();
-        qw.eq(q.getUserId() != null, "user_id", q.getUserId())
-                .eq(StringUtils.hasText(q.getOrderNo()), "order_no", q.getOrderNo())
-                .eq(q.getStatus() != null, "status", q.getStatus())
-                .orderByDesc("create_time");
+    public Page<OrderVO> searchOrders(OrderSearchRequest req, Pageable pageable) {
+        Page<Order> page = orderRepository.search(
+                req.getUserId(),
+                req.getOrderNo(),
+                req.getStatus(),
+                req.getCreateTimeStart(),
+                req.getCreateTimeEnd(),
+                pageable);
 
-        Page<Order> page = orderMapper.selectPage(
-                new Page<>(q.getPageNum(), q.getPageSize()), qw);
-
-        // 1. 先拿到 order 转 VO
-        Page<OrderVO> voPage = (Page<OrderVO>) page.convert(OrderConverter::toVO);
-
-        // 2. 一次性查出明细并装配
-        List<Long> orderIds = voPage.getRecords().stream()
-                .map(OrderVO::getId)
-                .collect(Collectors.toList());
+        // 一次性加载明细并填充
+        List<Long> orderIds = page.map(Order::getId).getContent();
         if (!orderIds.isEmpty()) {
-            List<OrderItem> items = itemMapper.selectList(
-                    new QueryWrapper<OrderItem>().in("order_id", orderIds));
-            Map<Long, List<OrderItem>> itemMap = items.stream()
+            List<OrderItem> items = itemRepository.findByOrderIdIn(orderIds);
+            Map<Long, List<OrderItem>> map = items.stream()
                     .collect(Collectors.groupingBy(OrderItem::getOrderId));
 
-            voPage.getRecords().forEach(vo -> {
-                List<OrderItemVO> itemVOs = itemMap.getOrDefault(vo.getId(), List.of())
-                        .stream()
-                        .map(OrderItemConverter::toVO)
+            return page.map(o -> {
+                OrderVO vo = OrderConverter.toVO(o);
+                List<OrderItemVO> itemVOs = map.getOrDefault(o.getId(), List.of())
+                        .stream().map(OrderItemConverter::toVO)
                         .collect(Collectors.toList());
                 vo.setItems(itemVOs);
+                return vo;
             });
         }
-        return voPage;
+        return page.map(OrderConverter::toVO);
     }
 
     @Override
+    @Transactional
     public void cancel(String orderNo) {
-        Order entity = orderMapper.selectOne(new QueryWrapper<Order>().eq("order_no", orderNo));
-        if (entity == null || entity.getStatus() != OrderStatusEnum.PENDING_PAYMENT) {
+        Order order = orderRepository.findByOrderNo(orderNo)
+                .orElseThrow(() -> new BusinessException("订单不存在"));
+        if (order.getStatus() != OrderStatusEnum.PENDING_PAYMENT) {
             throw new BusinessException("订单无法取消");
         }
-        entity.setStatus(OrderStatusEnum.CLOSED);
-        orderMapper.updateById(entity);
+        order.setStatus(OrderStatusEnum.CLOSED);
+        orderRepository.save(order);
     }
 
     @Override
+    @Transactional
     public void confirmReceive(String orderNo) {
-        Order entity = orderMapper.selectOne(new QueryWrapper<Order>().eq("order_no", orderNo));
-        if (entity == null || entity.getStatus() != OrderStatusEnum.SHIPPED) {
+        Order order = orderRepository.findByOrderNo(orderNo)
+                .orElseThrow(() -> new BusinessException("订单不存在"));
+        if (order.getStatus() != OrderStatusEnum.SHIPPED) {
             throw new BusinessException("订单状态异常");
         }
-        entity.setStatus(OrderStatusEnum.RECEIVED);
-        entity.setReceiveTime(LocalDateTime.now());
-        orderMapper.updateById(entity);
+        order.setStatus(OrderStatusEnum.RECEIVED);
+        order.setReceiveTime(LocalDateTime.now());
+        orderRepository.save(order);
     }
 
     private BigDecimal calcTotal(List<CartItem> carts) {

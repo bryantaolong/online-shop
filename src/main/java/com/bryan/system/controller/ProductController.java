@@ -1,13 +1,16 @@
 package com.bryan.system.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bryan.system.model.dto.ProductCreateDTO;
-import com.bryan.system.model.request.product.ProductPageQuery;
+import com.bryan.system.model.request.product.ProductSearchRequest;
 import com.bryan.system.model.vo.ProductVO;
 import com.bryan.system.service.product.ProductService;
 import com.bryan.system.model.response.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,9 +32,11 @@ public class ProductController {
     /**
      * 分页查询商品列表
      */
-    @GetMapping("/page")
-    public Result<Page<ProductVO>> pageProducts(@Valid ProductPageQuery query) {
-        return Result.success(productService.pageProducts(query));
+    @GetMapping("/search")
+    public Result<Page<ProductVO>> search(
+            @Valid ProductSearchRequest req,
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return Result.success(productService.searchProducts(req, pageable));
     }
 
     /**
