@@ -1,6 +1,6 @@
 package com.bryan.system.model.entity;
 
-import com.bryan.system.common.enums.GenderEnum;
+import com.bryan.system.model.enums.GenderEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
@@ -17,8 +17,6 @@ import java.time.LocalDateTime;
  * UserProfile
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/1
  */
 @Entity
 @Table(name = "\"user_profile\"")
