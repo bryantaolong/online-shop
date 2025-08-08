@@ -17,10 +17,10 @@ create table "sys_user"
     account_lock_time   timestamp,
     deleted             integer default 0,
     version             integer default 0,
-    create_time         timestamp                                        not null,
+    create_time         timestamp      default now() not null,
     update_time         timestamp,
-    create_by           varchar(255),
-    update_by           varchar(255)
+    create_by           varchar(50),
+    update_by           varchar(50)
 );
 
 CREATE INDEX idx_user_username ON sys_user (username);
@@ -38,10 +38,10 @@ CREATE TABLE sys_user_profile (
                                   personal_sign VARCHAR(255),
                                   deleted             integer default 0,
                                   version             integer default 0,
-                                  create_time         timestamp                                        not null,
+                                  create_time         timestamp      default now() not null,
                                   update_time         timestamp,
-                                  create_by           varchar(255),
-                                  update_by           varchar(255)
+                                  create_by           varchar(50),
+                                  update_by           varchar(50)
 );
 
 -- 用户收货地址
@@ -58,9 +58,12 @@ CREATE TABLE ums_user_address (
                                   is_default    SMALLINT DEFAULT 0,
                                   address_tag   SMALLINT,
                                   tag_name      VARCHAR(20),
-                                  deleted       SMALLINT DEFAULT 0,
-                                  create_time   TIMESTAMP DEFAULT NOW(),
-                                  update_time   TIMESTAMP DEFAULT NOW()
+                                  deleted             integer default 0,
+                                  version             integer default 0,
+                                  create_time         timestamp      default now() not null,
+                                  update_time         timestamp,
+                                  create_by           varchar(50),
+                                  update_by           varchar(50)
 );
 
 -- 商品分类
@@ -69,7 +72,13 @@ CREATE TABLE pms_category (
                               name       VARCHAR(100) NOT NULL,
                               parent_id  BIGINT REFERENCES pms_category(id),
                               level      SMALLINT,
-                              sort_order INTEGER
+                              sort_order INTEGER,
+                              deleted             integer default 0,
+                              version             integer default 0,
+                              create_time         timestamp      default now() not null,
+                              update_time         timestamp,
+                              create_by           varchar(50),
+                              update_by           varchar(50)
 );
 
 -- 品牌
@@ -77,7 +86,13 @@ CREATE TABLE pms_brand (
                            id          BIGSERIAL PRIMARY KEY,
                            name        VARCHAR(100) NOT NULL,
                            logo        VARCHAR(255),
-                           description TEXT
+                           description TEXT,
+                           deleted             integer default 0,
+                           version             integer default 0,
+                           create_time         timestamp      default now() not null,
+                           update_time         timestamp,
+                           create_by           varchar(50),
+                           update_by           varchar(50)
 );
 
 -- 商品 SPU
@@ -89,8 +104,12 @@ CREATE TABLE pms_product (
                              description TEXT,
                              main_image  VARCHAR(255),
                              status      SMALLINT DEFAULT 0,   -- 0-下架 1-上架
-                             create_time TIMESTAMP DEFAULT NOW(),
-                             update_time TIMESTAMP DEFAULT NOW()
+                             deleted             integer default 0,
+                             version             integer default 0,
+                             create_time         timestamp      default now() not null,
+                             update_time         timestamp,
+                             create_by           varchar(50),
+                             update_by           varchar(50)
 );
 
 CREATE INDEX idx_product_name ON pms_product (name);
@@ -105,8 +124,12 @@ CREATE TABLE pms_sku (
                          original_price NUMERIC(10,2),
                          stock         INTEGER,
                          specifications JSONB,
-                         create_time   TIMESTAMP DEFAULT NOW(),
-                         update_time   TIMESTAMP DEFAULT NOW()
+                         deleted             integer default 0,
+                         version             integer default 0,
+                         create_time         timestamp      default now() not null,
+                         update_time         timestamp,
+                         create_by           varchar(50),
+                         update_by           varchar(50)
 );
 
 -- 商品图片
@@ -115,7 +138,13 @@ CREATE TABLE pms_product_image (
                                    product_id BIGINT NOT NULL REFERENCES pms_product(id),
                                    sku_id     BIGINT REFERENCES pms_sku(id),
                                    image_url  VARCHAR(255),
-                                   sort_order INTEGER
+                                   sort_order INTEGER,
+                                   deleted             integer default 0,
+                                   version             integer default 0,
+                                   create_time         timestamp      default now() not null,
+                                   update_time         timestamp,
+                                   create_by           varchar(50),
+                                   update_by           varchar(50)
 );
 
 CREATE TABLE ums_cart_item (
@@ -129,8 +158,12 @@ CREATE TABLE ums_cart_item (
                                price         NUMERIC(10,2),
                                quantity      INTEGER,
                                specifications JSONB,
-                               create_time   TIMESTAMP DEFAULT NOW(),
-                               update_time   TIMESTAMP DEFAULT NOW()
+                               deleted             integer default 0,
+                               version             integer default 0,
+                               create_time         timestamp      default now() not null,
+                               update_time         timestamp,
+                               create_by           varchar(50),
+                               update_by           varchar(50)
 );
 
 -- 订单主表
@@ -152,10 +185,12 @@ CREATE TABLE oms_order (
                            payment_time  TIMESTAMP,
                            delivery_time TIMESTAMP,
                            receive_time  TIMESTAMP,
-                           create_time   TIMESTAMP DEFAULT NOW(),
-                           update_time   TIMESTAMP DEFAULT NOW(),
-                           deleted       SMALLINT DEFAULT 0,
-                           version       INTEGER DEFAULT 0
+                           deleted             integer default 0,
+                           version             integer default 0,
+                           create_time         timestamp      default now() not null,
+                           update_time         timestamp,
+                           create_by           varchar(50),
+                           update_by           varchar(50)
 );
 
 CREATE INDEX idx_order_user ON oms_order (user_id);
@@ -174,7 +209,13 @@ CREATE TABLE oms_order_item (
                                 product_price NUMERIC(10,2),
                                 quantity      INTEGER,
                                 total_price   NUMERIC(10,2),
-                                specifications JSONB
+                                specifications JSONB,
+                                deleted             integer default 0,
+                                version             integer default 0,
+                                create_time         timestamp      default now() not null,
+                                update_time         timestamp,
+                                create_by           varchar(50),
+                                update_by           varchar(50)
 );
 
 -- 订单历史（可选）
@@ -183,7 +224,12 @@ CREATE TABLE oms_order_history (
                                    order_id    BIGINT REFERENCES oms_order(id),
                                    order_status SMALLINT,
                                    note        VARCHAR(255),
-                                   create_time TIMESTAMP DEFAULT NOW()
+                                   deleted             integer default 0,
+                                   version             integer default 0,
+                                   create_time         timestamp      default now() not null,
+                                   update_time         timestamp,
+                                   create_by           varchar(50),
+                                   update_by           varchar(50)
 );
 
 CREATE TABLE pay_payment (
@@ -197,8 +243,12 @@ CREATE TABLE pay_payment (
                              payment_time     TIMESTAMP,
                              callback_content TEXT,
                              callback_time    TIMESTAMP,
-                             create_time      TIMESTAMP DEFAULT NOW(),
-                             update_time      TIMESTAMP DEFAULT NOW()
+                             deleted             integer default 0,
+                             version             integer default 0,
+                             create_time         timestamp      default now() not null,
+                             update_time         timestamp,
+                             create_by           varchar(50),
+                             update_by           varchar(50)
 );
 
 CREATE INDEX idx_payment_order ON pay_payment (order_no);

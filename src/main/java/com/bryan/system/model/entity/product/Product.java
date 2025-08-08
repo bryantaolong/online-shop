@@ -58,21 +58,26 @@ public class Product implements Serializable {
     private ProductStatusEnum status = ProductStatusEnum.OFF_SHELF;
 
     /* ---------- 通用字段 ---------- */
-    @Column(nullable = false)
+    @Column(name = "deleted")
     private Integer deleted = 0;
 
     @Version
+    @Column(name = "version")
     private Integer version = 0;
 
     @CreatedDate
+    @Column(name = "create_time")
     private LocalDateTime createTime;
 
     @LastModifiedDate
+    @Column(name = "update_time")
     private LocalDateTime updateTime;
 
     @CreatedBy
+    @Column(name = "create_by")
     private String createBy;
 
     @LastModifiedBy
+    @Column(name = "update_by")
     private String updateBy;
 }
