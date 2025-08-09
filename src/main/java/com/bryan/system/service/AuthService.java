@@ -1,8 +1,10 @@
 package com.bryan.system.service;
 
+import com.bryan.system.domain.entity.UserRole;
 import com.bryan.system.domain.enums.UserStatusEnum;
 import com.bryan.system.exception.BusinessException;
 import com.bryan.system.repository.UserRepository;
+import com.bryan.system.repository.UserRoleRepository;
 import com.bryan.system.service.redis.RedisStringService;
 import com.bryan.system.util.http.HttpUtils;
 import com.bryan.system.util.jwt.JwtUtils;
@@ -17,6 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -30,9 +33,11 @@ import java.util.Map;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Validated
 public class AuthService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final UserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
     private final RedisStringService redisStringService;
 
@@ -53,13 +58,17 @@ public class AuthService implements UserDetailsService {
             throw new BusinessException("用户名已存在");
         }
 
+        // 查出默认角色
+        UserRole defaultRole = userRoleRepository.findByIsDefaultTrue()
+                .orElseThrow(() -> new BusinessException("系统未配置默认角色"));
+
         // 构建用户实体，密码加密
         User user = User.builder()
                 .username(req.getUsername())
                 .password(passwordEncoder.encode(req.getPassword()))
                 .phoneNumber(req.getPhoneNumber())
                 .email(req.getEmail())
-                .roles("ROLE_USER")
+                .roles(defaultRole.getRoleName())
                 .passwordResetTime(LocalDateTime.now())
                 .build();
 

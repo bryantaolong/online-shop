@@ -1,5 +1,6 @@
 package com.bryan.system.controller;
 
+import com.bryan.system.domain.request.ChangeRoleRequest;
 import com.bryan.system.domain.request.UserSearchRequest;
 import com.bryan.system.domain.response.Result;
 import com.bryan.system.domain.request.UserUpdateRequest;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 用户控制器：提供用户相关的 RESTful API 接口。
@@ -109,16 +112,14 @@ public class UserController {
      * <p>仅管理员可操作。</p>
      *
      * @param userId 目标用户ID
-     * @param roles  新角色字符串，逗号分隔（如 "ROLE_USER,ROLE_ADMIN"）
+     * @param req  新角色字符串，逗号分隔（如 "ROLE_USER,ROLE_ADMIN"）
      * @return 更新后的用户实体
      */
-    @PutMapping("/{userId}/role")
+    @PutMapping("/users/{userId}/roles")
     @PreAuthorize("hasRole('ADMIN')")
-    public Result<User> changeRole(
-            @PathVariable Long userId,
-            @RequestBody String roles) {
-        // 1. 调用服务变更角色
-        return Result.success(userService.changeRole(userId, roles));
+    public Result<User> changeRoleByIds(@PathVariable Long userId,
+                                        @Valid @RequestBody ChangeRoleRequest req) {
+        return Result.success(userService.changeRoleByIds(userId, req));
     }
 
     /**

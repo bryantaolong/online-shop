@@ -19,20 +19,26 @@ import java.time.LocalDateTime;
  * @author Bryan Long
  */
 @Entity
+@Table(name = "user_role")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @SQLRestriction("deleted = 0")
-//@SQLDelete(sql = "UPDATE table_name SET deleted = 1, update_time = NOW() WHERE id = ? AND version = ?")
+@SQLDelete(sql = "UPDATE user_role SET deleted = 1, update_time = NOW() WHERE id = ? AND version = ?")
 @EntityListeners(AuditingEntityListener.class)
-public class BaseEntity implements Serializable {
+public class UserRole implements Serializable {
 
     /* ---------- 主键 ---------- */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String roleName;
+
+    @Column(name = "is_default", nullable = false)
+    private Boolean isDefault = false;
 
     /* ---------- 通用字段 ---------- */
     private Integer deleted = 0;

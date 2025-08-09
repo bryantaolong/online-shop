@@ -52,6 +52,40 @@ create index idx_user_username
 
 comment on index idx_user_username is '用户名索引，用于加速用户名查询';
 
+-- user_role
+create sequence "user_role_id_seq";
+
+create table user_role
+(
+    id          integer   default nextval('user_role_id_seq'::regclass) not null
+        primary key,
+    role_name   varchar(50)                                             not null,
+    is_default  boolean   default false                                 not null,
+    deleted     integer   default 0,
+    version     integer   default 0,
+    create_time timestamp default now()                                 not null,
+    update_time timestamp,
+    create_by   varchar(255),
+    update_by   varchar(255)
+);
+
+comment on table user_role is '用户角色表，存储角色权限';
+comment on column user_role.id is '用户ID，关联user表的主键';
+comment on column user_role.role_name is '用户真实姓名';
+comment on column user_role.deleted is '软删除标记(0-未删除 1-已删除)';
+comment on column user_role.version is '乐观锁版本号';
+comment on column user_role.create_time is '记录创建时间';
+comment on column user_role.update_time is '记录更新时间';
+comment on column user_role.create_by is '记录创建人';
+comment on column user_role.update_by is '记录更新人';
+
+alter table user_role
+    owner to postgres;
+
+create unique index uk_user_role_default_true
+    on user_role (is_default)
+    where (is_default = true);
+
 -- user_profile
 CREATE TABLE "user_profile" (
                                 user_id      BIGINT PRIMARY KEY,
@@ -73,11 +107,11 @@ COMMENT ON COLUMN "user_profile".real_name IS '用户真实姓名';
 COMMENT ON COLUMN "user_profile".gender IS '性别(0-未知 1-男 2-女)';
 COMMENT ON COLUMN "user_profile".birthday IS '用户生日';
 COMMENT ON COLUMN "user_profile".avatar IS '用户头像URL';
-comment on column "user".deleted is '软删除标记(0-未删除 1-已删除)';
-comment on column "user".version is '乐观锁版本号';
-comment on column "user".create_time is '记录创建时间';
-comment on column "user".update_time is '记录更新时间';
-comment on column "user".create_by is '记录创建人';
-comment on column "user".update_by is '记录更新人';
+comment on column "user_profile".deleted is '软删除标记(0-未删除 1-已删除)';
+comment on column "user_profile".version is '乐观锁版本号';
+comment on column "user_profile".create_time is '记录创建时间';
+comment on column "user_profile".update_time is '记录更新时间';
+comment on column "user_profile".create_by is '记录创建人';
+comment on column "user_profile".update_by is '记录更新人';
 
 ALTER TABLE "user_profile" OWNER TO postgres;
