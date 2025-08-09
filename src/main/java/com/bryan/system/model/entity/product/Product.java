@@ -1,6 +1,6 @@
 package com.bryan.system.model.entity.product;
 
-import com.bryan.system.common.enums.ProductStatusEnum;
+import com.bryan.system.model.enums.ProductStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
  * Product 商品 SPU（标准产品单位）
  *
  * @author Bryan Long
- * @since 2025/8/1
  */
 @Entity
 @Table(name = "pms_product")

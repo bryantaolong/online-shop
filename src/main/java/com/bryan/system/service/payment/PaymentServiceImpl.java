@@ -1,9 +1,9 @@
 package com.bryan.system.service.payment;
 
-import com.bryan.system.common.enums.OrderStatusEnum;
-import com.bryan.system.common.enums.PayStatusEnum;
-import com.bryan.system.common.exception.BusinessException;
-import com.bryan.system.common.exception.ResourceNotFoundException;
+import com.bryan.system.model.enums.OrderStatusEnum;
+import com.bryan.system.model.enums.PayStatusEnum;
+import com.bryan.system.exception.BusinessException;
+import com.bryan.system.exception.ResourceNotFoundException;
 import com.bryan.system.model.converter.PaymentConverter;
 import com.bryan.system.model.dto.PayCreateDTO;
 import com.bryan.system.model.dto.RefundResult;
@@ -28,8 +28,6 @@ import java.util.Map;
  * PaymentServiceImpl
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 @Slf4j
 @Service

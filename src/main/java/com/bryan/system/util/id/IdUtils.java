@@ -7,8 +7,6 @@ import org.springframework.util.SimpleIdGenerator;
  * IdUtils
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 public final class IdUtils {
     private static final IdGenerator GENERATOR = new SimpleIdGenerator();

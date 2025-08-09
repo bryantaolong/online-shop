@@ -1,6 +1,6 @@
 package com.bryan.system.model.entity.user;
 
-import com.bryan.system.common.enums.UserStatusEnum;
+import com.bryan.system.model.enums.UserStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
  * User
  *
  * @author Bryan Long
- * @since 2025/8/6
  */
 @Entity
 @Table(name = "sys_user")

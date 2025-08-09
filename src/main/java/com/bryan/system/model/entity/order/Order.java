@@ -1,7 +1,7 @@
 package com.bryan.system.model.entity.order;
 
-import com.bryan.system.common.enums.OrderStatusEnum;
-import com.bryan.system.common.enums.PayTypeEnum;
+import com.bryan.system.model.enums.OrderStatusEnum;
+import com.bryan.system.model.enums.PayTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
  * Order 订单主表
  *
  * @author Bryan Long
- * @since 2025/8/1
  */
 @Entity
 @Table(name = "oms_order")

@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
  * ProductCategoryRepository
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/7
  */
 @Repository
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory,Long> {

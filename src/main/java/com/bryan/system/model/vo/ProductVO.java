@@ -1,6 +1,6 @@
 package com.bryan.system.model.vo;
 
-import com.bryan.system.common.enums.ProductStatusEnum;
+import com.bryan.system.model.enums.ProductStatusEnum;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
  * ProductVO
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 @Data
 @Builder

@@ -1,7 +1,7 @@
 package com.bryan.system.service.product;
 
-import com.bryan.system.common.exception.BusinessException;
-import com.bryan.system.common.exception.ResourceNotFoundException;
+import com.bryan.system.exception.BusinessException;
+import com.bryan.system.exception.ResourceNotFoundException;
 import com.bryan.system.model.converter.SkuConverter;
 import com.bryan.system.model.dto.SkuCreateDTO;
 import com.bryan.system.model.entity.product.ProductSku;
@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
  * SkuServiceImpl
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 @Slf4j
 @Service

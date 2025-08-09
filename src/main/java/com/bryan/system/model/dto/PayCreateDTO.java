@@ -1,6 +1,6 @@
 package com.bryan.system.model.dto;
 
-import com.bryan.system.common.enums.PayTypeEnum;
+import com.bryan.system.model.enums.PayTypeEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -11,8 +11,6 @@ import java.math.BigDecimal;
  * PayCreateDTO
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 @Data
 public class PayCreateDTO {

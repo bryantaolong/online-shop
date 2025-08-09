@@ -14,8 +14,6 @@ import java.util.Optional;
  * CartItemRepository
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/7
  */
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {

@@ -1,6 +1,6 @@
 package com.bryan.system.service.cart;
 
-import com.bryan.system.common.exception.ResourceNotFoundException;
+import com.bryan.system.exception.ResourceNotFoundException;
 import com.bryan.system.model.converter.CartConverter;
 import com.bryan.system.model.converter.CartItemConverter;
 import com.bryan.system.model.dto.AddCartItemDTO;
@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
  * CartServiceImpl
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 @Slf4j
 @Service

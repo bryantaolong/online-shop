@@ -1,7 +1,7 @@
 package com.bryan.system.service.product;
 
-import com.bryan.system.common.enums.ProductStatusEnum;
-import com.bryan.system.common.exception.ResourceNotFoundException;
+import com.bryan.system.model.enums.ProductStatusEnum;
+import com.bryan.system.exception.ResourceNotFoundException;
 import com.bryan.system.model.converter.ProductConverter;
 import com.bryan.system.model.dto.ProductCreateDTO;
 import com.bryan.system.model.entity.product.Product;
@@ -16,10 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * ProductServiceImpl - JPA 版本
+ * ProductServiceImpl
  *
  * @author Bryan Long
- * @since 2025/8/5
  */
 @Slf4j
 @Service

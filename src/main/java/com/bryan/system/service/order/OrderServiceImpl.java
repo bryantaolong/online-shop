@@ -1,8 +1,8 @@
 package com.bryan.system.service.order;
 
-import com.bryan.system.common.enums.OrderStatusEnum;
-import com.bryan.system.common.exception.BusinessException;
-import com.bryan.system.common.exception.ResourceNotFoundException;
+import com.bryan.system.model.enums.OrderStatusEnum;
+import com.bryan.system.exception.BusinessException;
+import com.bryan.system.exception.ResourceNotFoundException;
 import com.bryan.system.model.converter.CartItemConverter;
 import com.bryan.system.model.converter.OrderConverter;
 import com.bryan.system.model.converter.OrderItemConverter;
@@ -35,8 +35,6 @@ import java.util.stream.Collectors;
  * OrderServiceImpl
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 @Slf4j
 @Service

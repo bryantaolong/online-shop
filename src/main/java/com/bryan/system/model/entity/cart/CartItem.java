@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
  * CartItem
  *
  * @author Bryan Long
- * @since 2025/8/1
  */
 @Entity
 @Table(name = "ums_cart_item")

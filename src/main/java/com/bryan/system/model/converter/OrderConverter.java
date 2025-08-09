@@ -1,6 +1,6 @@
 package com.bryan.system.model.converter;
 
-import com.bryan.system.common.enums.OrderStatusEnum;
+import com.bryan.system.model.enums.OrderStatusEnum;
 import com.bryan.system.model.dto.CreateOrderDTO;
 import com.bryan.system.model.entity.cart.CartItem;
 import com.bryan.system.model.entity.order.Order;
@@ -15,8 +15,6 @@ import java.util.List;
  * OrderConverter
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 public class OrderConverter {
 

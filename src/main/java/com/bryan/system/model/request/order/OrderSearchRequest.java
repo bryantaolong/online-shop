@@ -1,6 +1,6 @@
 package com.bryan.system.model.request.order;
 
-import com.bryan.system.common.enums.OrderStatusEnum;
+import com.bryan.system.model.enums.OrderStatusEnum;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
  * OrderPageQuery
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 @Getter
 @Setter

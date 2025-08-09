@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
  * BrandRepository
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/7
  */
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, Long> {

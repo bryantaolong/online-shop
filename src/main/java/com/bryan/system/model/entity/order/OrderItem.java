@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
  * OrderItem 订单项
  *
  * @author Bryan Long
- * @since 2025/8/1
  */
 @Entity
 @Table(name = "oms_order_item")

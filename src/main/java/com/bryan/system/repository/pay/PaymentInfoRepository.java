@@ -1,6 +1,6 @@
 package com.bryan.system.repository.pay;
 
-import com.bryan.system.common.enums.PayStatusEnum;
+import com.bryan.system.model.enums.PayStatusEnum;
 import com.bryan.system.model.entity.payment.PaymentInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,8 +15,6 @@ import java.util.Optional;
  * PaymentRepository
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/7
  */
 @Repository
 public interface PaymentInfoRepository extends JpaRepository<PaymentInfo, Long> {

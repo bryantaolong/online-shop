@@ -1,6 +1,6 @@
 package com.bryan.system.model.entity.user;
 
-import com.bryan.system.common.enums.AddressTagEnum;
+import com.bryan.system.model.enums.AddressTagEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
  * UserAddress 用户收货地址
  *
  * @author Bryan Long
- * @since 2025/8/1
  */
 @Entity
 @Table(name = "ums_user_address")

@@ -8,8 +8,6 @@ import lombok.Data;
  * AddCartItemDTO
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 @Data
 public class AddCartItemDTO {

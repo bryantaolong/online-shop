@@ -11,8 +11,6 @@ import org.springframework.data.domain.Pageable;
  * OrderService
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 public interface OrderService {
 

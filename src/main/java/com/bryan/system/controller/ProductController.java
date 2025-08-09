@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
  * 商品(SPU)控制器
  *
  * @author Bryan Long
- * @since 2025/8/5
  */
 @RestController
 @RequestMapping("/api/product")

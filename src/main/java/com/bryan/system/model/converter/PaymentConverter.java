@@ -7,8 +7,6 @@ import com.bryan.system.model.vo.PaymentVO;
  * PaymentConverter
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 public class PaymentConverter {
 

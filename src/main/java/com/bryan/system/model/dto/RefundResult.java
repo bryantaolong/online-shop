@@ -12,8 +12,6 @@ import java.time.LocalDateTime;
  * RefundResult
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 @Data
 @Builder

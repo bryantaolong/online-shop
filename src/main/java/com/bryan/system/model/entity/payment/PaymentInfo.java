@@ -1,7 +1,7 @@
 package com.bryan.system.model.entity.payment;
 
-import com.bryan.system.common.enums.PayStatusEnum;
-import com.bryan.system.common.enums.PayTypeEnum;
+import com.bryan.system.model.enums.PayStatusEnum;
+import com.bryan.system.model.enums.PayTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
  * PaymentInfo
  *
  * @author Bryan Long
- * @since 2025/8/1
  */
 @Entity
 @Table(name = "pay_payment")

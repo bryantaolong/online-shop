@@ -14,8 +14,6 @@ import java.util.Optional;
  * ProductSkuRepository
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/7
  */
 @Repository
 public interface ProductSkuRepository extends JpaRepository<ProductSku, Long> {

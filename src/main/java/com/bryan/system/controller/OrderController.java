@@ -22,7 +22,6 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
  * OrderController
  *
  * @author Bryan Long
- * @since 2025/8/5
  */
 @RestController
 @RequestMapping("/api/order")

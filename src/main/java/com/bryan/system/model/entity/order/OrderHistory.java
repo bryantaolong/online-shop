@@ -1,6 +1,6 @@
 package com.bryan.system.model.entity.order;
 
-import com.bryan.system.common.enums.OrderStatusEnum;
+import com.bryan.system.model.enums.OrderStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
  * OrderHistory 订单操作历史
  *
  * @author Bryan Long
- * @since 2025/8/1
  */
 @Entity
 @Table(name = "oms_order_history")

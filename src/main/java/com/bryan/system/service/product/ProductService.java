@@ -10,8 +10,6 @@ import org.springframework.data.domain.Pageable;
  * ProductService
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 public interface ProductService {
     Page<ProductVO> searchProducts(ProductSearchRequest req, Pageable pageable);

@@ -1,6 +1,6 @@
 package com.bryan.system.repository.order;
 
-import com.bryan.system.common.enums.OrderStatusEnum;
+import com.bryan.system.model.enums.OrderStatusEnum;
 import com.bryan.system.model.entity.order.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +16,6 @@ import java.util.Optional;
  * OrderRepository
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/7
  */
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {

@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
  * Brand 商品品牌
  *
  * @author Bryan Long
- * @since 2025/8/1
  */
 @Entity
 @Table(name = "pms_brand")

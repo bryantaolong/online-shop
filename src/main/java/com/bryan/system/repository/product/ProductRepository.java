@@ -1,6 +1,6 @@
 package com.bryan.system.repository.product;
 
-import com.bryan.system.common.enums.ProductStatusEnum;
+import com.bryan.system.model.enums.ProductStatusEnum;
 import com.bryan.system.model.entity.product.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,8 +13,6 @@ import org.springframework.stereotype.Repository;
  * ProductRepository
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/7
  */
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {

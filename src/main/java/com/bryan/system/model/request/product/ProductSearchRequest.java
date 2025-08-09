@@ -1,19 +1,14 @@
 package com.bryan.system.model.request.product;
 
-import com.bryan.system.common.enums.ProductStatusEnum;
+import com.bryan.system.model.enums.ProductStatusEnum;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import org.springframework.data.domain.PageRequest;
 
 /**
  * ProductPageQuery
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 @Getter
 public class ProductSearchRequest {

@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
  * ProductImage 商品图片
  *
  * @author Bryan Long
- * @since 2025/8/1
  */
 @Entity
 @Table(name = "pms_product_image")

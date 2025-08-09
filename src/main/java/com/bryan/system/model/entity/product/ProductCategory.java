@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
  * ProductCategory 商品分类
  *
  * @author Bryan Long
- * @since 2025/8/1
  */
 @Entity
 @Table(name = "pms_category")

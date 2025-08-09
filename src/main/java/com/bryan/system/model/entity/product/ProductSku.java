@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
  * ProductSku 商品 SKU（库存量单位）
  *
  * @author Bryan Long
- * @since 2025/8/1
  */
 @Entity
 @Table(name = "pms_sku")

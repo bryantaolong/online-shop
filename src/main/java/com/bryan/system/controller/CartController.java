@@ -17,8 +17,6 @@ import java.util.List;
  * CartController
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 @RestController
 @RequestMapping("/api/cart")

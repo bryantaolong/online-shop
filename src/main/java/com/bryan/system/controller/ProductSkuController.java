@@ -16,8 +16,6 @@ import java.util.List;
  * ProductSkuController
  *
  * @author Bryan Long
- * @version 1.0
- * @since 2025/8/5
  */
 @RestController
 @RequestMapping("/api/sku")
