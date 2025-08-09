@@ -1,9 +1,9 @@
 package com.bryan.system.controller;
 
-import com.bryan.system.model.dto.AddCartItemDTO;
-import com.bryan.system.model.vo.CartItemVO;
+import com.bryan.system.domain.dto.AddCartItemDTO;
+import com.bryan.system.domain.vo.CartItemVO;
 import com.bryan.system.service.cart.CartService;
-import com.bryan.system.model.response.Result;
+import com.bryan.system.domain.response.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

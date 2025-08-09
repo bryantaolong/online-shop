@@ -2,10 +2,10 @@ package com.bryan.system.service.product;
 
 import com.bryan.system.exception.BusinessException;
 import com.bryan.system.exception.ResourceNotFoundException;
-import com.bryan.system.model.converter.SkuConverter;
-import com.bryan.system.model.dto.SkuCreateDTO;
-import com.bryan.system.model.entity.product.ProductSku;
-import com.bryan.system.model.vo.SkuVO;
+import com.bryan.system.domain.converter.SkuConverter;
+import com.bryan.system.domain.dto.SkuCreateDTO;
+import com.bryan.system.domain.entity.product.ProductSku;
+import com.bryan.system.domain.vo.SkuVO;
 import com.bryan.system.repository.product.ProductSkuRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

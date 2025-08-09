@@ -1,9 +1,9 @@
 package com.bryan.system.service.order;
 
-import com.bryan.system.model.dto.CreateOrderDTO;
-import com.bryan.system.model.entity.order.Order;
-import com.bryan.system.model.request.order.OrderSearchRequest;
-import com.bryan.system.model.vo.OrderVO;
+import com.bryan.system.domain.dto.CreateOrderDTO;
+import com.bryan.system.domain.entity.order.Order;
+import com.bryan.system.domain.request.order.OrderSearchRequest;
+import com.bryan.system.domain.vo.OrderVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

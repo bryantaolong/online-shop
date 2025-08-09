@@ -1,7 +1,7 @@
 package com.bryan.system.service.cart;
 
-import com.bryan.system.model.dto.AddCartItemDTO;
-import com.bryan.system.model.vo.CartItemVO;
+import com.bryan.system.domain.dto.AddCartItemDTO;
+import com.bryan.system.domain.vo.CartItemVO;
 
 import java.util.List;
 

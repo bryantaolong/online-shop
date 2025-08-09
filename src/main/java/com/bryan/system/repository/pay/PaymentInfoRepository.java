@@ -1,7 +1,7 @@
 package com.bryan.system.repository.pay;
 
-import com.bryan.system.model.enums.PayStatusEnum;
-import com.bryan.system.model.entity.payment.PaymentInfo;
+import com.bryan.system.domain.enums.PayStatusEnum;
+import com.bryan.system.domain.entity.payment.PaymentInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

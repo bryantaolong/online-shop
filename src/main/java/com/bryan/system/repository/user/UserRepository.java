@@ -1,9 +1,9 @@
 package com.bryan.system.repository.user;
 
-import com.bryan.system.model.enums.UserStatusEnum;
-import com.bryan.system.model.entity.user.User;
-import com.bryan.system.model.request.user.UserExportRequest;
-import com.bryan.system.model.request.user.UserSearchRequest;
+import com.bryan.system.domain.enums.UserStatusEnum;
+import com.bryan.system.domain.entity.user.User;
+import com.bryan.system.domain.request.user.UserExportRequest;
+import com.bryan.system.domain.request.user.UserSearchRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

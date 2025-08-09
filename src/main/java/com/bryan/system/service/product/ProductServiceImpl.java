@@ -1,12 +1,12 @@
 package com.bryan.system.service.product;
 
-import com.bryan.system.model.enums.ProductStatusEnum;
+import com.bryan.system.domain.enums.ProductStatusEnum;
 import com.bryan.system.exception.ResourceNotFoundException;
-import com.bryan.system.model.converter.ProductConverter;
-import com.bryan.system.model.dto.ProductCreateDTO;
-import com.bryan.system.model.entity.product.Product;
-import com.bryan.system.model.request.product.ProductSearchRequest;
-import com.bryan.system.model.vo.ProductVO;
+import com.bryan.system.domain.converter.ProductConverter;
+import com.bryan.system.domain.dto.ProductCreateDTO;
+import com.bryan.system.domain.entity.product.Product;
+import com.bryan.system.domain.request.product.ProductSearchRequest;
+import com.bryan.system.domain.vo.ProductVO;
 import com.bryan.system.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

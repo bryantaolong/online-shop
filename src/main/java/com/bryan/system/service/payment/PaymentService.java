@@ -1,8 +1,8 @@
 package com.bryan.system.service.payment;
 
-import com.bryan.system.model.dto.PayCreateDTO;
-import com.bryan.system.model.dto.RefundResult;
-import com.bryan.system.model.vo.PaymentVO;
+import com.bryan.system.domain.dto.PayCreateDTO;
+import com.bryan.system.domain.dto.RefundResult;
+import com.bryan.system.domain.vo.PaymentVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.math.BigDecimal;

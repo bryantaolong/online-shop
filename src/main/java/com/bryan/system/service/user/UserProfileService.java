@@ -1,6 +1,6 @@
 package com.bryan.system.service.user;
 
-import com.bryan.system.model.entity.user.UserProfile;
+import com.bryan.system.domain.entity.user.UserProfile;
 import com.bryan.system.repository.user.UserProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

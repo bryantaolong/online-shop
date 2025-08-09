@@ -1,6 +1,6 @@
 package com.bryan.system.repository.user;
 
-import com.bryan.system.model.entity.user.UserAddress;
+import com.bryan.system.domain.entity.user.UserAddress;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

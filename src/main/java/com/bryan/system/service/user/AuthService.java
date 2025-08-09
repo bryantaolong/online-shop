@@ -1,14 +1,14 @@
 package com.bryan.system.service.user;
 
-import com.bryan.system.model.enums.UserStatusEnum;
+import com.bryan.system.domain.enums.UserStatusEnum;
 import com.bryan.system.exception.BusinessException;
 import com.bryan.system.repository.user.UserRepository;
 import com.bryan.system.service.redis.RedisStringService;
 import com.bryan.system.util.http.HttpUtils;
 import com.bryan.system.util.jwt.JwtUtils;
-import com.bryan.system.model.entity.user.User;
-import com.bryan.system.model.request.user.LoginRequest;
-import com.bryan.system.model.request.user.RegisterRequest;
+import com.bryan.system.domain.entity.user.User;
+import com.bryan.system.domain.request.user.LoginRequest;
+import com.bryan.system.domain.request.user.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;

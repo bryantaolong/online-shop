@@ -1,6 +1,6 @@
 package com.bryan.system.repository.user;
 
-import com.bryan.system.model.entity.user.UserProfile;
+import com.bryan.system.domain.entity.user.UserProfile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

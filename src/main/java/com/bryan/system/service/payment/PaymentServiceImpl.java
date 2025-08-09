@@ -1,16 +1,16 @@
 package com.bryan.system.service.payment;
 
-import com.bryan.system.model.enums.OrderStatusEnum;
-import com.bryan.system.model.enums.PayStatusEnum;
+import com.bryan.system.domain.enums.OrderStatusEnum;
+import com.bryan.system.domain.enums.PayStatusEnum;
 import com.bryan.system.exception.BusinessException;
 import com.bryan.system.exception.ResourceNotFoundException;
-import com.bryan.system.model.converter.PaymentConverter;
-import com.bryan.system.model.dto.PayCreateDTO;
-import com.bryan.system.model.dto.RefundResult;
-import com.bryan.system.model.entity.order.Order;
-import com.bryan.system.model.entity.payment.PaymentInfo;
-import com.bryan.system.model.vo.OrderVO;
-import com.bryan.system.model.vo.PaymentVO;
+import com.bryan.system.domain.converter.PaymentConverter;
+import com.bryan.system.domain.dto.PayCreateDTO;
+import com.bryan.system.domain.dto.RefundResult;
+import com.bryan.system.domain.entity.order.Order;
+import com.bryan.system.domain.entity.payment.PaymentInfo;
+import com.bryan.system.domain.vo.OrderVO;
+import com.bryan.system.domain.vo.PaymentVO;
 import com.bryan.system.repository.pay.PaymentInfoRepository;
 import com.bryan.system.service.order.OrderService;
 import com.fasterxml.jackson.core.JsonProcessingException;

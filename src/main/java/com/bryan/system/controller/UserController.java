@@ -1,10 +1,10 @@
 package com.bryan.system.controller;
 
-import com.bryan.system.model.request.user.UserSearchRequest;
-import com.bryan.system.model.response.Result;
-import com.bryan.system.model.request.user.UserUpdateRequest;
-import com.bryan.system.model.entity.user.User;
-import com.bryan.system.model.request.user.ChangePasswordRequest;
+import com.bryan.system.domain.request.user.UserSearchRequest;
+import com.bryan.system.domain.response.Result;
+import com.bryan.system.domain.request.user.UserUpdateRequest;
+import com.bryan.system.domain.entity.user.User;
+import com.bryan.system.domain.request.user.ChangePasswordRequest;
 import com.bryan.system.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

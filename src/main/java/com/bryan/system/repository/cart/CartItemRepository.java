@@ -1,6 +1,6 @@
 package com.bryan.system.repository.cart;
 
-import com.bryan.system.model.entity.cart.CartItem;
+import com.bryan.system.domain.entity.cart.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

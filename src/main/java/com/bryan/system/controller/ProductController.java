@@ -1,10 +1,10 @@
 package com.bryan.system.controller;
 
-import com.bryan.system.model.dto.ProductCreateDTO;
-import com.bryan.system.model.request.product.ProductSearchRequest;
-import com.bryan.system.model.vo.ProductVO;
+import com.bryan.system.domain.dto.ProductCreateDTO;
+import com.bryan.system.domain.request.product.ProductSearchRequest;
+import com.bryan.system.domain.vo.ProductVO;
 import com.bryan.system.service.product.ProductService;
-import com.bryan.system.model.response.Result;
+import com.bryan.system.domain.response.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

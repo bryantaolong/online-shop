@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Bryan Long
  */
 @Configuration
-@EntityScan("com.bryan.system.model.entity")
+@EntityScan("com.bryan.system.domain.entity")
 @EnableJpaAuditing
 @EnableTransactionManagement
 public class JpaConfig {

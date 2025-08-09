@@ -1,10 +1,10 @@
 package com.bryan.system.controller;
 
-import com.bryan.system.model.dto.PayCreateDTO;
-import com.bryan.system.model.dto.RefundResult;
-import com.bryan.system.model.vo.PaymentVO;
+import com.bryan.system.domain.dto.PayCreateDTO;
+import com.bryan.system.domain.dto.RefundResult;
+import com.bryan.system.domain.vo.PaymentVO;
 import com.bryan.system.service.payment.PaymentService;
-import com.bryan.system.model.response.Result;
+import com.bryan.system.domain.response.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;

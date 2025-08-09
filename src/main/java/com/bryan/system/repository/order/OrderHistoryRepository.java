@@ -1,6 +1,6 @@
 package com.bryan.system.repository.order;
 
-import com.bryan.system.model.entity.order.OrderHistory;
+import com.bryan.system.domain.entity.order.OrderHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,11 +1,11 @@
 package com.bryan.system.service.cart;
 
 import com.bryan.system.exception.ResourceNotFoundException;
-import com.bryan.system.model.converter.CartConverter;
-import com.bryan.system.model.converter.CartItemConverter;
-import com.bryan.system.model.dto.AddCartItemDTO;
-import com.bryan.system.model.entity.cart.CartItem;
-import com.bryan.system.model.vo.CartItemVO;
+import com.bryan.system.domain.converter.CartConverter;
+import com.bryan.system.domain.converter.CartItemConverter;
+import com.bryan.system.domain.dto.AddCartItemDTO;
+import com.bryan.system.domain.entity.cart.CartItem;
+import com.bryan.system.domain.vo.CartItemVO;
 import com.bryan.system.repository.cart.CartItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

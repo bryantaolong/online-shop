@@ -1,9 +1,9 @@
 package com.bryan.system.controller;
 
-import com.bryan.system.model.dto.SkuCreateDTO;
-import com.bryan.system.model.vo.SkuVO;
+import com.bryan.system.domain.dto.SkuCreateDTO;
+import com.bryan.system.domain.vo.SkuVO;
 import com.bryan.system.service.product.SkuService;
-import com.bryan.system.model.response.Result;
+import com.bryan.system.domain.response.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;

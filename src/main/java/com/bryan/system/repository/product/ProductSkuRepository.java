@@ -1,6 +1,6 @@
 package com.bryan.system.repository.product;
 
-import com.bryan.system.model.entity.product.ProductSku;
+import com.bryan.system.domain.entity.product.ProductSku;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,7 +1,7 @@
 package com.bryan.system.repository.order;
 
-import com.bryan.system.model.enums.OrderStatusEnum;
-import com.bryan.system.model.entity.order.Order;
+import com.bryan.system.domain.enums.OrderStatusEnum;
+import com.bryan.system.domain.entity.order.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
