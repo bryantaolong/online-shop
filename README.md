@@ -27,9 +27,9 @@ src/
     java/com/bryan/system/
       config/         # Configuration classes (security, Redis, JPA, etc.)
       controller/     # RESTful controllers
+      domain/         # Entities, request/response objects, VO
       filter/         # JWT authentication filter
       handler/        # Global exception handler
-      model/          # Entities, request/response objects, VO
       repository/     # Spring Data JPA Repository interfaces
       service/        # Service layer
       util/           # Utility classes (JWT, HTTP, etc.)

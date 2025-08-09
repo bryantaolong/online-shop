@@ -1,12 +1,12 @@
 package com.bryan.system.service;
 
-import com.bryan.system.model.enums.UserStatusEnum;
+import com.bryan.system.domain.enums.UserStatusEnum;
 import com.bryan.system.exception.BusinessException;
 import com.bryan.system.exception.ResourceNotFoundException;
 import com.bryan.system.repository.UserRepository;
-import com.bryan.system.model.entity.User;
-import com.bryan.system.model.request.UserSearchRequest;
-import com.bryan.system.model.request.UserUpdateRequest;
+import com.bryan.system.domain.entity.User;
+import com.bryan.system.domain.request.UserSearchRequest;
+import com.bryan.system.domain.request.UserUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

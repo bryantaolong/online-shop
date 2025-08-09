@@ -1,6 +1,6 @@
-package com.bryan.system.model.entity;
+package com.bryan.system.domain.entity;
 
-import com.bryan.system.model.enums.UserStatusEnum;
+import com.bryan.system.domain.enums.UserStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;

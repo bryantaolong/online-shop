@@ -1,7 +1,7 @@
 package com.bryan.system.service;
 
-import com.bryan.system.model.enums.GenderEnum;
-import com.bryan.system.model.entity.UserProfile;
+import com.bryan.system.domain.enums.GenderEnum;
+import com.bryan.system.domain.entity.UserProfile;
 import com.bryan.system.repository.UserProfileRepository;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;

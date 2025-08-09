@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
  * @author Bryan Long
  */
 @Configuration
-@EntityScan("com.bryan.system.model.entity")
+@EntityScan("com.bryan.system.domain.entity")
 @EnableJpaAuditing
 public class JpaConfig {
 }
