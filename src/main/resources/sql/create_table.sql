@@ -23,6 +23,37 @@ create table "sys_user"
     update_by           varchar(50)
 );
 
+-- user_role
+create sequence "sys_user_role_id_seq";
+
+create table sys_user_role
+(
+    id          integer   default nextval('sys_user_role_id_seq'::regclass) not null
+        primary key,
+    role_name   varchar(50)                                             not null,
+    is_default  boolean   default false                                 not null,
+    deleted     integer   default 0,
+    version     integer   default 0,
+    create_time timestamp default now()                                 not null,
+    update_time timestamp,
+    create_by   varchar(255),
+    update_by   varchar(255)
+);
+
+comment on table sys_user_role is '用户角色表，存储角色权限';
+comment on column sys_user_role.id is '用户ID，关联user表的主键';
+comment on column sys_user_role.role_name is '用户真实姓名';
+comment on column sys_user_role.deleted is '软删除标记(0-未删除 1-已删除)';
+comment on column sys_user_role.version is '乐观锁版本号';
+comment on column sys_user_role.create_time is '记录创建时间';
+comment on column sys_user_role.update_time is '记录更新时间';
+comment on column sys_user_role.create_by is '记录创建人';
+comment on column sys_user_role.update_by is '记录更新人';
+
+create unique index uk_user_role_default_true
+    on sys_user_role (is_default)
+    where (is_default = true);
+
 CREATE INDEX idx_user_username ON sys_user (username);
 
 -- 用户详情

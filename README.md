@@ -10,7 +10,7 @@ This project is a user management system based on Spring Boot 3, supporting user
 
 - Java 17
 - Spring Boot 3.5.4
-- MyBatis-Plus
+- Spring Data JPA
 - PostgreSQL 17.x
 - Redis
 - Spring Security
@@ -25,12 +25,12 @@ This project is a user management system based on Spring Boot 3, supporting user
 src/
   main/
     java/com/bryan/system/
-      config/         # Configuration classes (security, Redis, MyBatis-Plus, etc.)
+      config/         # Configuration classes (security, Redis, JPA, etc.)
       controller/     # RESTful controllers
+      domain/         # Entities, request/response objects, VO
       filter/         # JWT authentication filter
-      handler/        # MyBatis auto-fill, global exception handler
-      mapper/         # MyBatis-Plus Mapper interfaces
-      model/          # Entities, request/response objects, VO
+      handler/        # Global exception handler
+      repository/     # Spring Data JPA repository interfaces
       service/        # Service layer
       util/           # Utility classes (JWT, HTTP, etc.)
     resources/
