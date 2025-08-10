@@ -1,5 +1,6 @@
 package com.bryan.system.controller;
 
+import com.bryan.system.domain.request.ChangeRoleRequest;
 import com.bryan.system.domain.request.user.UserSearchRequest;
 import com.bryan.system.domain.response.Result;
 import com.bryan.system.domain.request.user.UserUpdateRequest;
@@ -109,16 +110,16 @@ public class UserController {
      * <p>仅管理员可操作。</p>
      *
      * @param userId 目标用户ID
-     * @param roles  新角色字符串，逗号分隔（如 "ROLE_USER,ROLE_ADMIN"）
+     * @param req  新角色字符串，逗号分隔（如 "ROLE_USER,ROLE_ADMIN"）
      * @return 更新后的用户实体
      */
     @PutMapping("/{userId}/role")
     @PreAuthorize("hasRole('ADMIN')")
     public Result<User> changeRole(
             @PathVariable Long userId,
-            @RequestBody String roles) {
+            @RequestBody ChangeRoleRequest req) {
         // 1. 调用服务变更角色
-        return Result.success(userService.changeRole(userId, roles));
+        return Result.success(userService.changeRoleByIds(userId, req));
     }
 
     /**

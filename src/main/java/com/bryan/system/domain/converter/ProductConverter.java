@@ -30,7 +30,7 @@ public class ProductConverter {
                 .description(p.getDescription())
                 .mainImage(p.getMainImage())
                 .status(p.getStatus())
-                .createTime(p.getCreateTime())
+                .createdAt(p.getCreatedAt())
                 .build();
     }
 }

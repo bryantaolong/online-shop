@@ -31,7 +31,7 @@ public class CartConverter {
                 .price(item.getPrice())
                 .quantity(item.getQuantity())
                 .specifications(item.getSpecifications())
-                .createTime(item.getCreateTime())
+                .createdAt(item.getCreatedAt())
                 .build();
     }
 }

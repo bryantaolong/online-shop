@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SQLRestriction("deleted = 0")                       // 逻辑删除过滤
-@SQLDelete(sql = "UPDATE oms_order_item SET deleted = 1, update_time = NOW() WHERE id = ? AND version = ?")
+@SQLDelete(sql = "UPDATE oms_order_item SET deleted = 1, updated_at = NOW() WHERE id = ? AND version = ?")
 @EntityListeners(AuditingEntityListener.class)        // 审计字段自动填充
 public class OrderItem implements Serializable {
 
@@ -79,18 +79,18 @@ public class OrderItem implements Serializable {
     private Integer version = 0;
 
     @CreatedDate
-    @Column(name = "create_time")
-    private LocalDateTime createTime;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name = "update_time")
-    private LocalDateTime updateTime;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @CreatedBy
-    @Column(name = "create_by")
+    @Column(name = "created_by")
     private String createBy;
 
     @LastModifiedBy
-    @Column(name = "update_by")
+    @Column(name = "updated_by")
     private String updateBy;
 }

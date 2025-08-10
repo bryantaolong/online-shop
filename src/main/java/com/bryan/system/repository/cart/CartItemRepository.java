@@ -19,7 +19,7 @@ import java.util.Optional;
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
     /** 查询用户的全部有效购物车项（deleted = 0） */
-    List<CartItem> findByUserIdAndDeletedOrderByCreateTimeDesc(Long userId, Integer deleted);
+    List<CartItem> findByUserIdAndDeletedOrderByCreatedAtDesc(Long userId, Integer deleted);
 
     /** 根据用户 + SKU 唯一查询（逻辑删除过滤） */
     Optional<CartItem> findByUserIdAndSkuIdAndDeleted(Long userId, Long skuId, Integer deleted);

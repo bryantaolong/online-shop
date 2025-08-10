@@ -24,5 +24,5 @@ public class CartItemVO {
     private BigDecimal price;
     private Integer quantity;
     private String specifications;
-    private LocalDateTime createTime;
+    private LocalDateTime createdAt;
 }

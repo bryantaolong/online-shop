@@ -25,7 +25,7 @@ public class CartItemConverter {
                 .price(vo.getPrice())
                 .quantity(vo.getQuantity())
                 .specifications(vo.getSpecifications())
-                .createTime(vo.getCreateTime())
+                .createdAt(vo.getCreatedAt())
                 .build();
     }
 
@@ -48,7 +48,7 @@ public class CartItemConverter {
                 .price(entity.getPrice())
                 .quantity(entity.getQuantity())
                 .specifications(entity.getSpecifications())
-                .createTime(entity.getCreateTime())
+                .createdAt(entity.getCreatedAt())
                 .build();
     }
 

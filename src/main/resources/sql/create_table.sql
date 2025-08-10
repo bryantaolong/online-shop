@@ -6,21 +6,21 @@ create table "sys_user"
     id                  bigint  default nextval('user_id_seq'::regclass) not null primary key,
     username            varchar(255)                                     not null,
     password            varchar(255)                                     not null,
-    phone_number        varchar(50),
+    phone               varchar(50),
     email               varchar(255),
     status              integer default 0,
     roles               varchar(255),
-    login_time          timestamp,
-    login_ip            varchar(255),
-    password_reset_time timestamp,
+    last_login_at       timestamp,
+    last_login_ip       varchar(255),
+    password_reset_at   timestamp,
     login_fail_count    integer default 0,
-    account_lock_time   timestamp,
+    locked_at           timestamp,
     deleted             integer default 0,
     version             integer default 0,
-    create_time         timestamp      default now() not null,
-    update_time         timestamp,
-    create_by           varchar(50),
-    update_by           varchar(50)
+    createdAt           timestamp      default now() not null,
+    updatedAt           timestamp,
+    created_by          varchar(50),
+    updated_by          varchar(50)
 );
 
 -- user_role
@@ -34,10 +34,10 @@ create table sys_user_role
     is_default  boolean   default false                                 not null,
     deleted     integer   default 0,
     version     integer   default 0,
-    create_time timestamp default now()                                 not null,
-    update_time timestamp,
-    create_by   varchar(255),
-    update_by   varchar(255)
+    created_at           timestamp      default now() not null,
+    updated_at           timestamp,
+    created_by          varchar(50),
+    updated_by          varchar(50)
 );
 
 comment on table sys_user_role is '用户角色表，存储角色权限';
@@ -45,10 +45,10 @@ comment on column sys_user_role.id is '用户ID，关联user表的主键';
 comment on column sys_user_role.role_name is '用户真实姓名';
 comment on column sys_user_role.deleted is '软删除标记(0-未删除 1-已删除)';
 comment on column sys_user_role.version is '乐观锁版本号';
-comment on column sys_user_role.create_time is '记录创建时间';
-comment on column sys_user_role.update_time is '记录更新时间';
-comment on column sys_user_role.create_by is '记录创建人';
-comment on column sys_user_role.update_by is '记录更新人';
+comment on column sys_user_role.created_at is '记录创建时间';
+comment on column sys_user_role.updated_at is '记录更新时间';
+comment on column sys_user_role.created_by is '记录创建人';
+comment on column sys_user_role.updated_by is '记录更新人';
 
 create unique index uk_user_role_default_true
     on sys_user_role (is_default)
@@ -69,10 +69,10 @@ CREATE TABLE sys_user_profile (
                                   personal_sign VARCHAR(255),
                                   deleted             integer default 0,
                                   version             integer default 0,
-                                  create_time         timestamp      default now() not null,
-                                  update_time         timestamp,
-                                  create_by           varchar(50),
-                                  update_by           varchar(50)
+                                  created_at           timestamp      default now() not null,
+                                  updated_at           timestamp,
+                                  created_by          varchar(50),
+                                  updated_by          varchar(50)
 );
 
 -- 用户收货地址
@@ -91,10 +91,10 @@ CREATE TABLE ums_user_address (
                                   tag_name      VARCHAR(20),
                                   deleted             integer default 0,
                                   version             integer default 0,
-                                  create_time         timestamp      default now() not null,
-                                  update_time         timestamp,
-                                  create_by           varchar(50),
-                                  update_by           varchar(50)
+                                  created_at           timestamp      default now() not null,
+                                  updated_at           timestamp,
+                                  created_by          varchar(50),
+                                  updated_by          varchar(50)
 );
 
 -- 商品分类
@@ -106,10 +106,10 @@ CREATE TABLE pms_category (
                               sort_order INTEGER,
                               deleted             integer default 0,
                               version             integer default 0,
-                              create_time         timestamp      default now() not null,
-                              update_time         timestamp,
-                              create_by           varchar(50),
-                              update_by           varchar(50)
+                              created_at           timestamp      default now() not null,
+                              updated_at           timestamp,
+                              created_by          varchar(50),
+                              updated_by          varchar(50)
 );
 
 -- 品牌
@@ -120,10 +120,10 @@ CREATE TABLE pms_brand (
                            description TEXT,
                            deleted             integer default 0,
                            version             integer default 0,
-                           create_time         timestamp      default now() not null,
-                           update_time         timestamp,
-                           create_by           varchar(50),
-                           update_by           varchar(50)
+                           created_at           timestamp      default now() not null,
+                           updated_at           timestamp,
+                           created_by          varchar(50),
+                           updated_by          varchar(50)
 );
 
 -- 商品 SPU
@@ -137,10 +137,10 @@ CREATE TABLE pms_product (
                              status      SMALLINT DEFAULT 0,   -- 0-下架 1-上架
                              deleted             integer default 0,
                              version             integer default 0,
-                             create_time         timestamp      default now() not null,
-                             update_time         timestamp,
-                             create_by           varchar(50),
-                             update_by           varchar(50)
+                             created_at           timestamp      default now() not null,
+                             updated_at           timestamp,
+                             created_by          varchar(50),
+                             updated_by          varchar(50)
 );
 
 CREATE INDEX idx_product_name ON pms_product (name);
@@ -157,10 +157,10 @@ CREATE TABLE pms_sku (
                          specifications JSONB,
                          deleted             integer default 0,
                          version             integer default 0,
-                         create_time         timestamp      default now() not null,
-                         update_time         timestamp,
-                         create_by           varchar(50),
-                         update_by           varchar(50)
+                         created_at           timestamp      default now() not null,
+                         updated_at           timestamp,
+                         created_by          varchar(50),
+                         updated_by          varchar(50)
 );
 
 -- 商品图片
@@ -172,10 +172,10 @@ CREATE TABLE pms_product_image (
                                    sort_order INTEGER,
                                    deleted             integer default 0,
                                    version             integer default 0,
-                                   create_time         timestamp      default now() not null,
-                                   update_time         timestamp,
-                                   create_by           varchar(50),
-                                   update_by           varchar(50)
+                                   created_at           timestamp      default now() not null,
+                                   updated_at           timestamp,
+                                   created_by          varchar(50),
+                                   updated_by          varchar(50)
 );
 
 CREATE TABLE ums_cart_item (
@@ -191,10 +191,10 @@ CREATE TABLE ums_cart_item (
                                specifications JSONB,
                                deleted             integer default 0,
                                version             integer default 0,
-                               create_time         timestamp      default now() not null,
-                               update_time         timestamp,
-                               create_by           varchar(50),
-                               update_by           varchar(50)
+                               created_at           timestamp      default now() not null,
+                               updated_at           timestamp,
+                               created_by          varchar(50),
+                               updated_by          varchar(50)
 );
 
 -- 订单主表
@@ -218,10 +218,10 @@ CREATE TABLE oms_order (
                            receive_time  TIMESTAMP,
                            deleted             integer default 0,
                            version             integer default 0,
-                           create_time         timestamp      default now() not null,
-                           update_time         timestamp,
-                           create_by           varchar(50),
-                           update_by           varchar(50)
+                           created_at           timestamp      default now() not null,
+                           updated_at           timestamp,
+                           created_by          varchar(50),
+                           updated_by          varchar(50)
 );
 
 CREATE INDEX idx_order_user ON oms_order (user_id);
@@ -243,10 +243,10 @@ CREATE TABLE oms_order_item (
                                 specifications JSONB,
                                 deleted             integer default 0,
                                 version             integer default 0,
-                                create_time         timestamp      default now() not null,
-                                update_time         timestamp,
-                                create_by           varchar(50),
-                                update_by           varchar(50)
+                                created_at           timestamp      default now() not null,
+                                updated_at           timestamp,
+                                created_by          varchar(50),
+                                updated_by          varchar(50)
 );
 
 -- 订单历史（可选）
@@ -257,10 +257,10 @@ CREATE TABLE oms_order_history (
                                    note        VARCHAR(255),
                                    deleted             integer default 0,
                                    version             integer default 0,
-                                   create_time         timestamp      default now() not null,
-                                   update_time         timestamp,
-                                   create_by           varchar(50),
-                                   update_by           varchar(50)
+                                   created_at           timestamp      default now() not null,
+                                   updated_at           timestamp,
+                                   created_by          varchar(50),
+                                   updated_by          varchar(50)
 );
 
 CREATE TABLE pay_payment (
@@ -276,10 +276,10 @@ CREATE TABLE pay_payment (
                              callback_time    TIMESTAMP,
                              deleted             integer default 0,
                              version             integer default 0,
-                             create_time         timestamp      default now() not null,
-                             update_time         timestamp,
-                             create_by           varchar(50),
-                             update_by           varchar(50)
+                             created_at           timestamp      default now() not null,
+                             updated_at           timestamp,
+                             created_by          varchar(50),
+                             updated_by          varchar(50)
 );
 
 CREATE INDEX idx_payment_order ON pay_payment (order_no);

@@ -25,9 +25,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
            WHERE (:userId IS NULL OR o.userId = :userId)
              AND (:orderNo IS NULL OR o.orderNo = :orderNo)
              AND (:status IS NULL OR o.status = :status)
-             AND (:createTimeStart IS NULL OR o.createTime >= :createTimeStart)
-             AND (:createTimeEnd   IS NULL OR o.createTime <= :createTimeEnd)
-           ORDER BY o.createTime DESC
+             AND (:createTimeStart IS NULL OR o.createdAt >= :createTimeStart)
+             AND (:createTimeEnd   IS NULL OR o.createdAt <= :createTimeEnd)
+           ORDER BY o.createdAt DESC
            """)
     Page<Order> search(@Param("userId") Long userId,
                        @Param("orderNo") String orderNo,

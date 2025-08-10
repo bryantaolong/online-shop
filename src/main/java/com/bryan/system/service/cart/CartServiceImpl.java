@@ -30,7 +30,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public List<CartItemVO> listByUser(Long userId) {
-        return cartRepository.findByUserIdAndDeletedOrderByCreateTimeDesc(userId, 0)
+        return cartRepository.findByUserIdAndDeletedOrderByCreatedAtDesc(userId, 0)
                 .stream()
                 .map(CartItemConverter::toVO)
                 .collect(Collectors.toList());

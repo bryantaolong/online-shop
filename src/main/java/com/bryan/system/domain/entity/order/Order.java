@@ -29,7 +29,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SQLRestriction("deleted = 0")
-@SQLDelete(sql = "UPDATE oms_order SET deleted = 1, update_time = NOW() WHERE id = ? AND version = ?")
+@SQLDelete(sql = "UPDATE oms_order SET deleted = 1, updated_at = NOW() WHERE id = ? AND version = ?")
 @EntityListeners(AuditingEntityListener.class)
 public class Order implements Serializable {
 
@@ -95,18 +95,18 @@ public class Order implements Serializable {
     private Integer version = 0;
 
     @CreatedDate
-    @Column(name = "create_time")
-    private LocalDateTime createTime;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name = "update_time")
-    private LocalDateTime updateTime;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @CreatedBy
-    @Column(name = "create_by")
-    private String createBy;
+    @Column(name = "created_by")
+    private String createdBy;
 
     @LastModifiedBy
-    @Column(name = "update_by")
-    private String updateBy;
+    @Column(name = "updated_by")
+    private String updatedBy;
 }

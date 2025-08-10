@@ -21,5 +21,5 @@ public class ProductVO {
     private String description;
     private String mainImage;
     private ProductStatusEnum status;
-    private LocalDateTime createTime;
+    private LocalDateTime createdAt;
 }
