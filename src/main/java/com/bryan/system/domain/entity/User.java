@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @SQLRestriction("deleted = 0")                       // 逻辑删除过滤
-@SQLDelete(sql = "UPDATE \"user\" SET deleted = 1, update_time = NOW() WHERE id = ? AND version = ?")
+@SQLDelete(sql = "UPDATE \"user\" SET deleted = 1, updated_at = NOW() WHERE id = ? AND version = ?")
 @EntityListeners(AuditingEntityListener.class)        // 自动填充审计字段
 public class User implements Serializable, UserDetails {
 
@@ -50,7 +50,7 @@ public class User implements Serializable, UserDetails {
     private String password;
 
     @Column(length = 20)
-    private String phoneNumber;
+    private String phone;
 
     @Column(unique = true, nullable = false, length = 128)
     private String email;
@@ -63,16 +63,16 @@ public class User implements Serializable, UserDetails {
     @Column(length = 512)
     private String roles;
 
-    private LocalDateTime loginTime;
+    private LocalDateTime lastLoginAt;
 
-    private String loginIp;
+    private String lastLoginIp;
 
-    private LocalDateTime passwordResetTime;
+    private LocalDateTime passwordResetAt;
 
 
     private Integer loginFailCount = 0;
 
-    private LocalDateTime accountLockTime;
+    private LocalDateTime lockedAt;
 
     /* ---------- 通用字段 ---------- */
     private Integer deleted = 0;
@@ -81,16 +81,16 @@ public class User implements Serializable, UserDetails {
     private Integer version = 0;
 
     @CreatedDate
-    private LocalDateTime createTime;
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
-    private LocalDateTime updateTime;
+    private LocalDateTime updatedAt;
 
     @CreatedBy
-    private String createBy;
+    private String createdBy;
 
     @LastModifiedBy
-    private String updateBy;
+    private String updatedBy;
 
     /* ---------- UserDetails 实现 ---------- */
     @Override
@@ -113,8 +113,8 @@ public class User implements Serializable, UserDetails {
     @Override
     public boolean isAccountNonLocked() {
         if (status == UserStatusEnum.NORMAL) return true;
-        if (status == UserStatusEnum.LOCKED && accountLockTime != null) {
-            return LocalDateTime.now().isAfter(accountLockTime.plusHours(1));
+        if (status == UserStatusEnum.LOCKED && lockedAt != null) {
+            return LocalDateTime.now().isAfter(lockedAt.plusHours(1));
         }
         return false;
     }

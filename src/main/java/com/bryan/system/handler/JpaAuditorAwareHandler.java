@@ -20,7 +20,7 @@ public class JpaAuditorAwareHandler implements AuditorAware<String> {
     public static final String SYSTEM_USER = "system";
 
     /**
-     * 每次 JPA 需要写入 create_by / update_by 时都会调用此方法
+     * 每次 JPA 需要写入 created_by / updated_by 时都会调用此方法
      *
      * @return 当前登录用户名（不可能为 null，至少返回 "system"）
      */

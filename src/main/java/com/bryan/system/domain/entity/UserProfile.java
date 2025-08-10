@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SQLRestriction("deleted = 0")
-@SQLDelete(sql = "UPDATE \"user_profile\" SET deleted = 1, update_time = NOW() WHERE user_id = ? AND version = ?")
+@SQLDelete(sql = "UPDATE \"user_profile\" SET deleted = 1, updated_at = NOW() WHERE user_id = ? AND version = ?")
 @EntityListeners(AuditingEntityListener.class) // 自动填充审计字段
 public class UserProfile {
 
@@ -57,14 +57,14 @@ public class UserProfile {
 
     // === 审计字段 ===
     @CreatedDate
-    private LocalDateTime createTime;
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
-    private LocalDateTime updateTime;
+    private LocalDateTime updatedAt;
 
     @CreatedBy
-    private String createBy;
+    private String createdBy;
 
     @LastModifiedBy
-    private String updateBy;
+    private String updatedBy;
 }
