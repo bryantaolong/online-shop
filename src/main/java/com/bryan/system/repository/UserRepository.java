@@ -92,7 +92,7 @@ public interface UserRepository extends JpaRepository<User, Long>,
                     req.getUpdateTimeStart(), req.getUpdateTimeEnd());
 
             // 默认排序：创建时间倒序（与 MP 一致）
-            cq.orderBy(cb.desc(root.get("created_at")));
+            cq.orderBy(cb.desc(root.get("createdAt")));
             return p;
         }
 
