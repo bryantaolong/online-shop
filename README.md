@@ -1,10 +1,10 @@
-# User System
+# Online Shop
 
 [中文说明请见这里 (Chinese README here)](./README_zh.md)
 
 ## Project Overview
 
-This project is a user management system based on Spring Boot 3, supporting user registration, login, information management, role-based access control, and data export. The backend uses PostgreSQL as the main database and Redis for caching and distributed scenarios. JWT is used for stateless authentication and role-based authorization.
+This project is an online shopping system based on Spring Boot 3, supporting features such as user registration, login, shopping cart, order management, payment processing, product management, and data export. The backend uses PostgreSQL as the main database and Redis for caching and distributed scenarios. JWT is used for stateless authentication and role-based authorization.
 
 ## Tech Stack
 
@@ -39,7 +39,7 @@ src/
       sql/            # Database schema scripts
   test/
     java/com/bryan/system/
-      UserSystemApplicationTests.java
+      OnlineShopApplicationTests.java
 ```
 
 ## Requirements
@@ -53,6 +53,7 @@ src/
 
 - Update database and Redis settings in `src/main/resources/application-dev.yaml`.
 - General settings (logging, MyBatis-Plus logic delete, etc.) are in `src/main/resources/application.yaml`.
+- Inject JWT secret via configuration file for production environments.
 - Database schema scripts are in [`src/main/resources/sql/create_table.sql`](src/main/resources/sql/create_table.sql).
 
 ## Getting Started
@@ -73,16 +74,17 @@ src/
 
    ```sh
    mvn clean package
-   java -jar target/user-system-0.0.1-SNAPSHOT.jar
+   java -jar target/online-shop-0.0.1-SNAPSHOT.jar
    ```
 
 ## Main APIs
 
 - User registration: `POST /api/auth/register`
 - User login: `POST /api/auth/login`
-- Get all users: `GET /api/user/all` (admin only)
-- Search users: `POST /api/user/search`
-- User update, role change, password update, ban/unban, logical delete, etc. are detailed in [`UserController`](src/main/java/com/bryan/system/controller/UserController.java)
+- Shopping cart operations: `POST /api/cart/add`, `GET /api/cart/view`, `DELETE /api/cart/remove`
+- Order management: `POST /api/order/create`, `GET /api/order/{id}`, `PUT /api/order/cancel`
+- Payment processing: `POST /api/payment/pay`, `GET /api/payment/status`
+- Product management: `POST /api/product/add`, `GET /api/product/{id}`, `PUT /api/product/update`
 - Export user data: `GET /api/user/export/all`, `POST /api/user/export/field` (admin only)
 
 ## Notes

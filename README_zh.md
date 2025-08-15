@@ -1,16 +1,16 @@
-# User System
+# 在线商城
 
 [English README here (英文版说明)](./README.md)
 
 ## 项目简介
 
-本项目为基于 Spring Boot 3 的用户管理系统，支持用户注册、登录、信息管理、权限控制、数据导出等功能。后端采用 PostgreSQL 作为主数据库，Redis 用于缓存和分布式场景，支持 JWT 无状态认证和基于角色的权限控制。
+本项目为基于 Spring Boot 3 的在线商城系统，支持用户注册、登录、购物车、订单管理、支付处理、商品管理、数据导出等功能。后端采用 PostgreSQL 作为主数据库，Redis 用于缓存和分布式场景，支持 JWT 无状态认证和基于角色的权限控制。
 
 ## 技术栈
 
 - Java 17
 - Spring Boot 3.5.4
-- MyBatis-Plus
+- Spring Data JPA
 - PostgreSQL 17.x
 - Redis
 - Spring Security
@@ -27,10 +27,10 @@ src/
     java/com/bryan/system/
       config/         # 配置类（安全、Redis、MyBatis-Plus等）
       controller/     # RESTful 控制器
+      domain/         # DTO、转换器、枚举
       filter/         # JWT 认证过滤器
       handler/        # MyBatis 自动填充、全局异常处理
-      mapper/         # MyBatis-Plus Mapper接口
-      model/          # 实体、请求/响应对象、VO
+      repository/     # Spring Data JPA 仓储接口
       service/        # 业务服务层
       util/           # 工具类（JWT、HTTP等）
     resources/
@@ -39,7 +39,7 @@ src/
       sql/            # 数据库建表脚本
   test/
     java/com/bryan/system/
-      UserSystemApplicationTests.java
+      OnlineShopApplicationTests.java
 ```
 
 ## 环境要求
@@ -53,6 +53,7 @@ src/
 
 - 数据库连接、Redis 配置请在 `src/main/resources/application-dev.yaml` 中修改。
 - 日志、MyBatis-Plus 逻辑删除等通用配置见 `src/main/resources/application.yaml`。
+- JWT 密钥建议生产环境通过配置文件注入，避免硬编码。
 - 数据库建表脚本见 [`src/main/resources/sql/create_table.sql`](src/main/resources/sql/create_table.sql)。
 
 ## 启动方式
@@ -73,16 +74,17 @@ src/
 
    ```sh
    mvn clean package
-   java -jar target/user-system-0.0.1-SNAPSHOT.jar
+   java -jar target/online-shop-0.0.1-SNAPSHOT.jar
    ```
 
 ## 常用接口
 
 - 用户注册：`POST /api/auth/register`
 - 用户登录：`POST /api/auth/login`
-- 查询用户：`GET /api/user/all`（管理员权限）
-- 用户搜索：`POST /api/user/search`
-- 用户信息更新、角色变更、密码修改、封禁/解封、逻辑删除等接口详见 [`UserController`](src/main/java/com/bryan/system/controller/UserController.java)
+- 购物车操作：`POST /api/cart/add`，`GET /api/cart/view`，`DELETE /api/cart/remove`
+- 订单管理：`POST /api/order/create`，`GET /api/order/{id}`，`PUT /api/order/cancel`
+- 支付处理：`POST /api/payment/pay`，`GET /api/payment/status`
+- 商品管理：`POST /api/product/add`，`GET /api/product/{id}`，`PUT /api/product/update`
 - 用户数据导出：`GET /api/user/export/all`、`POST /api/user/export/field`（管理员权限）
 
 ## 其他说明
