@@ -52,7 +52,7 @@ src/
 ## Configuration
 
 - Update database and Redis settings in `src/main/resources/application-dev.yaml`.
-- General settings (logging, MyBatis-Plus logic delete, etc.) are in `src/main/resources/application.yaml`.
+- General settings (logging etc.) are in `src/main/resources/application.yaml`.
 - Inject JWT secret via configuration file for production environments.
 - Database schema scripts are in [`src/main/resources/sql/create_table.sql`](src/main/resources/sql/create_table.sql).
 

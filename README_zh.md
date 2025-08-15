@@ -52,7 +52,7 @@ src/
 ## 配置说明
 
 - 数据库连接、Redis 配置请在 `src/main/resources/application-dev.yaml` 中修改。
-- 日志、MyBatis-Plus 逻辑删除等通用配置见 `src/main/resources/application.yaml`。
+- 日志等通用配置见 `src/main/resources/application.yaml`。
 - JWT 密钥建议生产环境通过配置文件注入，避免硬编码。
 - 数据库建表脚本见 [`src/main/resources/sql/create_table.sql`](src/main/resources/sql/create_table.sql)。
 
